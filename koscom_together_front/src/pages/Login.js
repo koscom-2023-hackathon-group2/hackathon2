@@ -5,6 +5,7 @@ import {
   LoginTitle,
   LoginWrapper,
 } from "../styles/LoginEmotion";
+
 import stockBubble from "../assets/stock_bubble.png";
 
 const Login = () => {

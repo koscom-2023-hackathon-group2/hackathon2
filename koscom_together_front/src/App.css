@@ -36,3 +36,11 @@ body {
 .bold {
   font-weight: 700;
 }
+
+.lato {
+  font-family: "Lato", sans-serif;
+}
+
+.notoSansKR {
+  font-family: "Noto Sans KR", sans-serif;
+}
