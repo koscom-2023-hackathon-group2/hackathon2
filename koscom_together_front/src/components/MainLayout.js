@@ -1,13 +1,18 @@
 import MainHeader from "./MainHeader";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
+import { MainLayoutWrapper, OutletWrapper } from "../styles/CommonEmotion";
 
 const MainLayout = () => {
   return (
     <>
-      <MainHeader />
-      <Outlet />
-      <Footer />
+      <MainLayoutWrapper>
+        <MainHeader />
+        <OutletWrapper>
+          <Outlet />
+        </OutletWrapper>
+        <Footer />
+      </MainLayoutWrapper>
     </>
   );
 };

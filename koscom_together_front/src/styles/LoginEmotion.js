@@ -55,7 +55,7 @@ export const LoginBtn = styled.div`
   height: 3rem;
   border-radius: 20px;
   background-color: ${COLORS.white};
-  transition: box-shadow 0.3s;
+
   font-family: ${FONTS.Lato};
   font-size: 20px;
   text-align: center;
@@ -63,6 +63,7 @@ export const LoginBtn = styled.div`
   margin-top: 3rem;
   cursor: pointer;
 
+  transition: box-shadow 0.3s;
   &:hover {
     box-shadow: 0 0 30px rgba(33, 33, 33, 0.5);
   }
