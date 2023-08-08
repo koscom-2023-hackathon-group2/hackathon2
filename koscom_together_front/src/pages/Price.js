@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -14,7 +16,7 @@ import {
   SearchInput,
   StockModalWrapper,
 } from "../styles/PriceEmotion";
-import { useState } from "react";
+
 import { dummyStocks } from "../assets/dummyData";
 import SinglePrice from "../components/SinglePrice";
 import Modal from "../components/Modal";
@@ -22,7 +24,7 @@ import Modal from "../components/Modal";
 const Price = () => {
   const stocks = dummyStocks;
 
-  const [stockModalShow, setStockModalShow] = useState(true);
+  const [stockModalShow, setStockModalShow] = useState(false);
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
