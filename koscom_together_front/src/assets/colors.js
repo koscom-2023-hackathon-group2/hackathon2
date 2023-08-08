@@ -2,6 +2,9 @@ export const COLORS = {
   white: "#ffffff",
   black: "#000000",
 
+  minus: "#1036F0",
+  plus: "#ED3738",
+
   mainBlue: "#3c62dd",
   blue200: "#748FE7",
   blue300: "#A8B9F0",
