@@ -6,13 +6,15 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import { HistoryWrapper } from "../styles/HistoryEmotion";
-import SingleHistory from "../components/SingleHistory";
+import {
+  StockHistoryTitleContainer,
+  StockHistoryWrapper,
+} from "../styles/StockHistoryEmotion";
+import { dummyStockHistory } from "../assets/dummyData";
+import SingleStockHistory from "../components/SingleStockHistory";
 
-import { dummyHistory } from "../assets/dummyData";
-
-const History = () => {
-  const histories = dummyHistory;
+const StockHistory = () => {
+  const stockHistories = dummyStockHistory;
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -54,7 +56,12 @@ const History = () => {
 
   return (
     <>
-      <HistoryWrapper>
+      <StockHistoryWrapper>
+        <StockHistoryTitleContainer>
+          <div className="account-num">33-29-3847398</div>
+          <div className="bold group-name">코스콤 47기 동기들</div>
+          <div>주식 거래 내역</div>
+        </StockHistoryTitleContainer>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
@@ -62,48 +69,48 @@ const History = () => {
               onChange={handleChange}
               aria-label="basic tabs example">
               <Tab label="전체" {...a11yProps(0)} />
-              <Tab label="입금" {...a11yProps(1)} />
-              <Tab label="출금" {...a11yProps(2)} />
+              <Tab label="매수" {...a11yProps(1)} />
+              <Tab label="매도" {...a11yProps(2)} />
             </Tabs>
           </Box>
           {/* 전체 입출금 Tab */}
           <CustomTabPanel value={value} index={0}>
-            {histories.map((history, idx) => (
-              <SingleHistory
-                date={history.date}
-                group={history.group}
-                price={history.price}
+            {stockHistories.map((stockHist, index) => (
+              <SingleStockHistory
+                date={stockHist.date}
+                name={stockHist.name}
+                cnt={stockHist.cnt}
               />
             ))}
           </CustomTabPanel>
           {/* 입금 Tab */}
           <CustomTabPanel value={value} index={1}>
-            {histories
-              .filter((history) => history.price > 0)
-              .map((history, idx) => (
-                <SingleHistory
-                  date={history.date}
-                  group={history.group}
-                  price={history.price}
+            {stockHistories
+              .filter((stockHist) => stockHist.cnt > 0)
+              .map((stockHist, index) => (
+                <SingleStockHistory
+                  date={stockHist.date}
+                  name={stockHist.name}
+                  cnt={stockHist.cnt}
                 />
               ))}
           </CustomTabPanel>
           {/* 출금 Tab */}
           <CustomTabPanel value={value} index={2}>
-            {histories
-              .filter((history) => history.price < 0)
-              .map((history, idx) => (
-                <SingleHistory
-                  date={history.date}
-                  group={history.group}
-                  price={history.price}
+            {stockHistories
+              .filter((stockHist) => stockHist.cnt < 0)
+              .map((stockHist, index) => (
+                <SingleStockHistory
+                  date={stockHist.date}
+                  name={stockHist.name}
+                  cnt={stockHist.cnt}
                 />
               ))}
           </CustomTabPanel>
         </Box>
-      </HistoryWrapper>
+      </StockHistoryWrapper>
     </>
   );
 };
 
-export default History;
+export default StockHistory;

@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Balance from "./pages/Balance";
 import Price from "./pages/Price";
 import History from "./pages/History";
+import StockHistory from "./pages/StockHistory";
+import SubLayout from "./components/SubLayout";
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
             <Route path="/balance" element={<Balance />} />
             <Route path="/price" element={<Price />} />
             <Route path="/history" element={<History />} />
+          </Route>
+          <Route element={<SubLayout />}>
+            <Route path="stockHistory" element={<StockHistory />} />
           </Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>

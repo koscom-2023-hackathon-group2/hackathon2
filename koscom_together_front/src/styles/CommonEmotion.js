@@ -5,6 +5,12 @@ import { COLORS } from "../assets/colors";
 export const MainLayoutWrapper = styled.div`
   padding: 0 1.5rem;
   height: 100%;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
 `;
 
 export const HeaderWrapper = styled.div`
@@ -13,6 +19,10 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   font-family: ${FONTS.Lato};
   font-size: 1.5rem;
+
+  .logo {
+    cursor: pointer;
+  }
 `;
 
 export const FooterWrapper = styled.div`
