@@ -3,10 +3,10 @@ import { SinglePriceWrapper } from "../styles/PriceEmotion";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
-const SinglePrice = ({ name, price, percent }) => {
+const SinglePrice = ({ name, price, percent, onClickStock }) => {
   return (
     <>
-      <SinglePriceWrapper>
+      <SinglePriceWrapper onClick={onClickStock}>
         <div>{name}</div>
         <div className="stock-info-right">
           <div>{price.toLocaleString()}</div>

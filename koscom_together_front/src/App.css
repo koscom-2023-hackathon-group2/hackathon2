@@ -44,3 +44,18 @@ body {
 .notoSansKR {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flexGrow {
+  flex-grow: 1;
+}
