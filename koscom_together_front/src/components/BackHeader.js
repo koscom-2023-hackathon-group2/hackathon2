@@ -4,20 +4,20 @@ import styled from "styled-components";
 import { COLORS } from "../assets/colors";
 import { FONTS } from "../assets/fonts";
 
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+
 import { HeaderWrapper } from "../styles/CommonEmotion";
 
-const MainHeader = () => {
+const BackHeader = () => {
   const navigate = useNavigate();
 
   return (
     <>
       <HeaderWrapper>
-        <div className="logo" onClick={() => navigate("/")}>
-          <span className="bold">koscom </span>Together
-        </div>
+        <KeyboardBackspaceIcon />
       </HeaderWrapper>
     </>
   );
 };
 
-export default MainHeader;
+export default BackHeader;

@@ -8,9 +8,12 @@ import {
 } from "../styles/HomeEmotion";
 
 import stockBubble from "../assets/stock_bubble.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const newClient = false;
+  const newClient = false; // 추후 삭제 예정
+
+  const navigate = useNavigate();
   return (
     <>
       <HomeWrapper>
@@ -38,7 +41,9 @@ const Home = () => {
                 </div>
                 <div className="account-box-bottom">
                   <AccountBtn>잔고</AccountBtn>
-                  <AccountBtn>거래 내역</AccountBtn>
+                  <AccountBtn onClick={() => navigate("/stockHistory")}>
+                    거래 내역
+                  </AccountBtn>
                   <AccountBtn>채우기</AccountBtn>
                 </div>
               </AccountBox>
