@@ -31,7 +31,6 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  flex-grow: 1;
   padding: 0.5rem 1rem;
   border-radius: 10px;
   border: 1px solid ${COLORS.gray200};
@@ -54,6 +53,13 @@ export const SinglePriceWrapper = styled.div`
 
   font-family: ${FONTS.NotoSansKR};
 
+  cursor: pointer;
+
+  transition: box-shadow 0.3s;
+  &:hover {
+    box-shadow: 0 0 10px rgba(33, 33, 33, 0.2);
+  }
+
   .stock-info-right {
     display: flex;
   }
@@ -69,5 +75,76 @@ export const SinglePriceWrapper = styled.div`
 
   .plus {
     color: ${COLORS.plus};
+  }
+`;
+
+export const StockModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: ${FONTS.NotoSansKR};
+
+  .stock-name {
+    font-weight: 700;
+  }
+
+  .stock-info {
+    font-size: 14px;
+    color: ${COLORS.gray100};
+    padding: 5px 0;
+  }
+
+  .stock-num {
+    padding-right: 0.5rem;
+  }
+
+  .stock-belong {
+    padding-left: 0.5rem;
+  }
+
+  .stock-price {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .minus {
+    color: ${COLORS.minus};
+  }
+
+  .plus {
+    color: ${COLORS.plus};
+  }
+
+  .number-input-box {
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .number-input {
+    width: 4rem;
+  }
+
+  .btn-list {
+    display: flex;
+  }
+
+  .btn {
+    cursor: pointer;
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+    color: ${COLORS.white};
+
+    transition: box-shadow 0.3s;
+    &:hover {
+      box-shadow: 5px 5px 10px rgba(33, 33, 33, 0.3);
+    }
+  }
+
+  .buy {
+    background-color: ${COLORS.plus};
+  }
+
+  .sell {
+    background-color: ${COLORS.minus};
+    margin-right: 0.5rem;
   }
 `;
