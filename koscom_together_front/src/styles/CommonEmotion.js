@@ -36,6 +36,8 @@ export const FooterWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
 
+  z-index: 999;
+
   .active {
     color: ${COLORS.white};
   }
