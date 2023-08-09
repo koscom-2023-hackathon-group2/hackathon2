@@ -22,7 +22,7 @@ import SinglePrice from "../components/SinglePrice";
 import Modal from "../components/Modal";
 
 const Price = () => {
-  const stocks = dummyStocks;
+  const stocks = dummyStocks; // 추후 삭제 예정
 
   const [stockModalShow, setStockModalShow] = useState(false);
 
