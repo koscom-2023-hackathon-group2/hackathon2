@@ -9,6 +9,7 @@ import Price from "./pages/Price";
 import History from "./pages/History";
 import StockHistory from "./pages/StockHistory";
 import SubLayout from "./components/SubLayout";
+import Asset from "./pages/Asset";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
             <Route path="/history" element={<History />} />
           </Route>
           <Route element={<SubLayout />}>
-            <Route path="stockHistory" element={<StockHistory />} />
+            <Route path="/asset" element={<Asset />} />
+            <Route path="/stockHistory" element={<StockHistory />} />
           </Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
