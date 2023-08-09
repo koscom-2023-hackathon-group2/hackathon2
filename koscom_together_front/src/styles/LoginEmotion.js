@@ -13,9 +13,22 @@ export const LoginWrapper = styled.div`
   position: relative;
   box-sizing: border-box;
 
+  @keyframes float {
+    0% {
+      transform: translatey(0px);
+    }
+    50% {
+      transform: translatey(-15px);
+    }
+    100% {
+      transform: translatey(0px);
+    }
+  }
+
   .loginImg {
     width: 200px;
     height: 200px;
+    animation: float 3s ease-in-out infinite;
   }
 `;
 

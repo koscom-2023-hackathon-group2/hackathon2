@@ -1,9 +1,9 @@
 import { SingleHistoryWrapper } from "../styles/HistoryEmotion";
 
-const SingleStockHistory = ({ date, name, cnt }) => {
+const SingleStockHistory = ({ date, name, cnt, onClickStockHistory }) => {
   return (
     <>
-      <SingleHistoryWrapper>
+      <SingleHistoryWrapper onClick={onClickStockHistory}>
         <div className="flex">
           <span className="date">{date}</span>
           <span>{name}</span>

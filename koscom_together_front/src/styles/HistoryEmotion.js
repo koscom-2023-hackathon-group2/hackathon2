@@ -18,6 +18,7 @@ export const HistoryWrapper = styled.div`
 export const SingleHistoryWrapper = styled.div`
   height: 50px;
   border-bottom: 1px solid ${COLORS.gray300};
+  padding: 0 0.5rem;
 
   display: flex;
   align-items: center;
@@ -25,9 +26,28 @@ export const SingleHistoryWrapper = styled.div`
 
   font-family: ${FONTS.NotoSansKR};
 
+  cursor: pointer;
+
+  transition: box-shadow 0.3s;
+  &:hover {
+    box-shadow: 0 0 10px rgba(33, 33, 33, 0.2);
+  }
+
   .date {
     font-size: 12px;
     color: ${COLORS.gray100};
     padding-right: 1rem;
+  }
+`;
+
+export const SingleHistoryInfoWrapper = styled.div`
+  padding: 10px 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid ${COLORS.gray300};
+
+  .date {
+    font-size: 14px;
   }
 `;

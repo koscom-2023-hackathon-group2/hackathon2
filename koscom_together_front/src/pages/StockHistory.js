@@ -6,15 +6,25 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+
 import {
   StockHistoryTitleContainer,
   StockHistoryWrapper,
 } from "../styles/StockHistoryEmotion";
 import { dummyStockHistory } from "../assets/dummyData";
 import SingleStockHistory from "../components/SingleStockHistory";
+import Modal from "../components/Modal";
+import { StockModalWrapper } from "../styles/PriceEmotion";
+import SingleHistoryInfo from "../components/SingleHistoryInfo";
 
 const StockHistory = () => {
-  const stockHistories = dummyStockHistory;
+  const stockHistories = dummyStockHistory; // 추후 삭제 예정
+  const price = 190000; // 추후 삭제 예정
+  const totalPrice = 3800000; // 추후 삭제 예정
+
+  const [stockHistoryModalShow, setStockHistoryModalShow] = useState(false);
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -54,8 +64,41 @@ const StockHistory = () => {
     setValue(newValue);
   };
 
+  const onClickStockHistory = () => {
+    setStockHistoryModalShow(true);
+  };
+
   return (
     <>
+      <Modal
+        modalShow={stockHistoryModalShow}
+        setModalShow={setStockHistoryModalShow}>
+        <StockModalWrapper>
+          <div className="stock-name">현대차</div>
+          <div className="stock-info">
+            <span className="stock-num">005380</span>|
+            <span className="stock-belong">KOSPI200</span>
+          </div>
+          <div className="flexColumn info-box">
+            <SingleHistoryInfo>
+              <div className="bold">체결 날짜</div>
+              <div className="date">2023.07.29. 오전 09:18</div>
+            </SingleHistoryInfo>
+            <SingleHistoryInfo>
+              <div className="bold">1주 가격</div>
+              <div>{price.toLocaleString()}원</div>
+            </SingleHistoryInfo>
+            <SingleHistoryInfo>
+              <div className="bold">수량</div>
+              <div>20주</div>
+            </SingleHistoryInfo>
+            <SingleHistoryInfo>
+              <div className="bold">총 체결 금액</div>
+              <div>{totalPrice.toLocaleString()}원</div>
+            </SingleHistoryInfo>
+          </div>
+        </StockModalWrapper>
+      </Modal>
       <StockHistoryWrapper>
         <StockHistoryTitleContainer>
           <div className="account-num">33-29-3847398</div>
@@ -80,6 +123,7 @@ const StockHistory = () => {
                 date={stockHist.date}
                 name={stockHist.name}
                 cnt={stockHist.cnt}
+                onClickStockHistory={onClickStockHistory}
               />
             ))}
           </CustomTabPanel>
@@ -92,6 +136,7 @@ const StockHistory = () => {
                   date={stockHist.date}
                   name={stockHist.name}
                   cnt={stockHist.cnt}
+                  onClickStockHistory={onClickStockHistory}
                 />
               ))}
           </CustomTabPanel>
@@ -104,6 +149,7 @@ const StockHistory = () => {
                   date={stockHist.date}
                   name={stockHist.name}
                   cnt={stockHist.cnt}
+                  onClickStockHistory={onClickStockHistory}
                 />
               ))}
           </CustomTabPanel>
