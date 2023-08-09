@@ -147,4 +147,8 @@ export const StockModalWrapper = styled.div`
     background-color: ${COLORS.minus};
     margin-right: 0.5rem;
   }
+
+  .info-box {
+    margin-top: 1rem;
+  }
 `;
