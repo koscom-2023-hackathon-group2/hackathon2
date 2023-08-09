@@ -52,7 +52,7 @@ const Home = () => {
             </AccountsWrapper>
           </>
         )}
-        <AddNewBox>
+        <AddNewBox onClick={() => navigate("/new")}>
           <div className="circle">+</div>
           <div>Add New</div>
         </AddNewBox>
