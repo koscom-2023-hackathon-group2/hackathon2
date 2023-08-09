@@ -40,7 +40,9 @@ const Home = () => {
                   <div>-12%</div>
                 </div>
                 <div className="account-box-bottom">
-                  <AccountBtn>잔고</AccountBtn>
+                  <AccountBtn onClick={() => navigate("/asset")}>
+                    자산
+                  </AccountBtn>
                   <AccountBtn onClick={() => navigate("/stockHistory")}>
                     거래 내역
                   </AccountBtn>

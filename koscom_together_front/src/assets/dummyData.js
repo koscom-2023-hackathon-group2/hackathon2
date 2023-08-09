@@ -3,6 +3,11 @@ export const dummyStocks = [
   { name: "삼성전자", price: 67600, percent: 2.12 },
 ];
 
+export const dummyStockAssets = [
+  { name: "현대차", cnt: 5, percent: -0.42 },
+  { name: "삼성전자", cnt: 10, percent: 2.12 },
+];
+
 export const dummyHistory = [
   { date: "07.29", group: "짱구네 주식모임", price: 1000000 },
   { date: "07.28", group: "짱구네 주식모임", price: 800000 },
