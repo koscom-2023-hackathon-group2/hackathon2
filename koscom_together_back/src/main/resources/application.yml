@@ -1,1 +1,30 @@
+spring:
+  port: 8080
 
+  sql:
+    init:
+      mode: always
+      data-locations:
+        - classpath:db/data-h2.sql
+
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: "jdbc:h2:mem:koscom;MODE=MYSQL;DB_CLOSE_DELAY=-1"
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
