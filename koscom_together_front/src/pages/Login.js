@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   LoginBox,
   LoginBtn,
@@ -9,6 +11,12 @@ import {
 import stockBubble from "../assets/stock_bubble.png";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <LoginWrapper>
@@ -22,7 +30,7 @@ const Login = () => {
           <div>비밀번호</div>
           <LoginInput type="password" />
         </LoginBox>
-        <LoginBtn>Login</LoginBtn>
+        <LoginBtn onClick={handleLogin}>Login</LoginBtn>
       </LoginWrapper>
     </>
   );

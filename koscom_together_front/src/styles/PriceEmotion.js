@@ -31,11 +31,12 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.7rem;
   border-radius: 10px;
   border: 1px solid ${COLORS.gray200};
   margin-right: 0.5rem;
   font-family: ${FONTS.NotoSansKR};
+  font-size: 1rem;
 
   &:focus {
     outline: none;
@@ -150,5 +151,41 @@ export const StockModalWrapper = styled.div`
 
   .info-box {
     margin-top: 1rem;
+  }
+`;
+
+export const InviteModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: ${FONTS.NotoSansKR};
+
+  .invite-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .invite-input-box {
+    padding-top: 2rem;
+  }
+
+  .label {
+    margin-bottom: 0.5rem;
+  }
+
+  .invite-btn {
+    font-size: 1rem;
+    background-color: ${COLORS.mainBlue};
+    padding: 5px 10px;
+    color: ${COLORS.white};
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 2rem;
+
+    transition: box-shadow 0.3s;
+    &:hover {
+      box-shadow: 0 5px 10px rgba(33, 33, 33, 0.3);
+    }
   }
 `;

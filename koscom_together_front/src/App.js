@@ -10,6 +10,7 @@ import History from "./pages/History";
 import StockHistory from "./pages/StockHistory";
 import SubLayout from "./components/SubLayout";
 import Asset from "./pages/Asset";
+import NewAccount from "./pages/NewAccount";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/history" element={<History />} />
           </Route>
           <Route element={<SubLayout />}>
+            <Route path="/new" element={<NewAccount />} />
             <Route path="/asset" element={<Asset />} />
             <Route path="/stockHistory" element={<StockHistory />} />
           </Route>
