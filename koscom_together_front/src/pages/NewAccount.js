@@ -1,4 +1,6 @@
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   ConnectingAccountContainer,
   NewAccountContentWrapper,
@@ -24,6 +26,8 @@ import Select from "@mui/material/Select";
 const steps = ["약관 동의", "계좌 정보 입력"];
 
 const NewAccount = () => {
+  const navigate = useNavigate();
+
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -34,8 +38,8 @@ const NewAccount = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleFinish = () => {
+    navigate("/");
   };
 
   const ITEM_HEIGHT = 48;
@@ -157,10 +161,12 @@ const NewAccount = () => {
           </Stepper>
           {activeStep === steps.length ? (
             <Fragment>
-              <Typography sx={{ mt: 2, mb: 1 }}>계좌 개설 완료</Typography>
+              <Typography sx={{ mt: 2, mb: 1 }}>
+                <div className="finish-txt">계좌 개설이 완료되었습니다.</div>
+              </Typography>
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                 <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleReset}>Reset</Button>
+                <Button onClick={handleFinish}>Finish</Button>
               </Box>
             </Fragment>
           ) : (

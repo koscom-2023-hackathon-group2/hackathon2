@@ -19,3 +19,10 @@ export const dummyStockHistory = [
   { date: "07.28", name: "삼성전자", cnt: 100 },
   { date: "07.22", name: "엔씨소프트", cnt: -25 },
 ];
+
+export const dummyMembers = [
+  { name: "김철수", accNum: "3333-3318394-01" },
+  { name: "이영희", accNum: "3333-3318394-01" },
+  { name: "정하린", accNum: "3333-3318394-01" },
+  { name: "김아영", accNum: "3333-3318394-01" },
+];

@@ -16,6 +16,14 @@ export const NewAccountWrapper = styled.div`
   .stepper-body {
     padding: 0 0.5rem;
   }
+
+  .finish-txt {
+    font-family: ${FONTS.NotoSansKR};
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const NewAccountDescBox = styled.div`

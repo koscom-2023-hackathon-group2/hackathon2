@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -18,19 +19,28 @@ import { Doughnut } from "react-chartjs-2";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { dummyStockAssets } from "../assets/dummyData";
+import { dummyMembers, dummyStockAssets } from "../assets/dummyData";
 import Modal from "../components/Modal";
-import { SearchInput, StockModalWrapper } from "../styles/PriceEmotion";
+import {
+  InviteModalWrapper,
+  SearchInput,
+  StockModalWrapper,
+} from "../styles/PriceEmotion";
 import SingleAsset from "../components/SingleAsset";
+import SingleMember from "../components/SingleMember";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Asset = () => {
+  const navigate = useNavigate();
+
   const cashAmount = 2200000; // 추후 삭제 예정
   const stockAmount = 1022190; // 추후 삭제 예정
   const stocks = dummyStockAssets; // 추후 삭제 예정
+  const members = dummyMembers; // 추후 삭제 예정
 
   const [stockModalShow, setStockModalShow] = useState(false);
+  const [inviteModalShow, setInviteModalShow] = useState(false);
 
   const data = {
     labels: ["현금", "주식"],
@@ -87,8 +97,32 @@ const Asset = () => {
     setStockModalShow(true);
   };
 
+  const onClickInviteBtn = () => {
+    setInviteModalShow(true);
+  };
+
+  const handleInvitation = () => {
+    alert("구성원 초대가 완료되었습니다.");
+  };
+
   return (
     <>
+      <Modal modalShow={inviteModalShow} setModalShow={setInviteModalShow}>
+        <InviteModalWrapper>
+          <div className="invite-modal-title">구성원 초대하기</div>
+          <div className="flexColumn invite-input-box">
+            <div className="bold label">이름</div>
+            <SearchInput placeholder="이름을 입력해주세요" />
+          </div>
+          <div className="flexColumn invite-input-box">
+            <div className="bold label">아이디</div>
+            <SearchInput placeholder="아이디를 입력해주세요" />
+          </div>
+          <div className="invite-btn" onClick={handleInvitation}>
+            초대하기
+          </div>
+        </InviteModalWrapper>
+      </Modal>
       <Modal modalShow={stockModalShow} setModalShow={setStockModalShow}>
         <StockModalWrapper>
           <div className="stock-name">현대차</div>
@@ -117,7 +151,12 @@ const Asset = () => {
         <AssetTitleContainer>
           <div className="account-num">33-29-3847398</div>
           <div className="bold group-name">코스콤 47기 동기들</div>
-          <div>자산 현황</div>
+          <div className="flex asset-title-sub-box">
+            <div>자산 현황</div>
+            <div className="invite-btn" onClick={onClickInviteBtn}>
+              초대하기
+            </div>
+          </div>
         </AssetTitleContainer>
         <AssetGraphContainer>
           <Doughnut data={data} />
@@ -130,6 +169,7 @@ const Asset = () => {
                 onChange={handleChange}
                 aria-label="basic tabs example">
                 <Tab label="보유 주식" {...a11yProps(0)} />
+                <Tab label="구성원" {...a11yProps(1)} />
               </Tabs>
             </Box>
             {/* 보유 주식 Tab */}
@@ -141,6 +181,12 @@ const Asset = () => {
                   percent={stock.percent}
                   onClickStock={onClickStock}
                 />
+              ))}
+            </CustomTabPanel>
+            {/* 구성원 Tab */}
+            <CustomTabPanel value={value} index={1}>
+              {members.map((member, idx) => (
+                <SingleMember name={member.name} accNum={member.accNum} />
               ))}
             </CustomTabPanel>
           </Box>

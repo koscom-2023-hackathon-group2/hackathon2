@@ -32,6 +32,24 @@ export const AssetTitleContainer = styled.div`
   .group-name {
     padding: 0.5rem 0;
   }
+
+  .asset-title-sub-box {
+    justify-content: space-between;
+  }
+
+  .invite-btn {
+    font-size: 1rem;
+    background-color: ${COLORS.mainBlue};
+    padding: 5px 10px;
+    color: ${COLORS.white};
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: box-shadow 0.3s;
+    &:hover {
+      box-shadow: 0 5px 10px rgba(33, 33, 33, 0.3);
+    }
+  }
 `;
 
 export const AssetGraphContainer = styled.div`
