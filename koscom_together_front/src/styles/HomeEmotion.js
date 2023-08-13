@@ -6,6 +6,10 @@ export const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .account-list-title {
+    font-size: 18px;
+  }
 `;
 
 export const WelcomeBox = styled.div`
@@ -96,4 +100,51 @@ export const AccountBtn = styled.div`
   background-color: ${COLORS.sub400};
   border-radius: 0.5rem;
   cursor: pointer;
+`;
+
+export const InvitationWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  font-family: ${FONTS.NotoSansKR};
+
+  .group-name {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .invite-img {
+    width: 5rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-list {
+    padding-top: 1rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 5px 10px;
+    color: ${COLORS.white};
+    border-radius: 10px;
+    cursor: pointer;
+
+    margin: 0 0.5rem;
+
+    transition: box-shadow 0.3s;
+    &:hover {
+      box-shadow: 0 5px 10px rgba(33, 33, 33, 0.3);
+    }
+  }
+
+  .accept-btn {
+    background-color: ${COLORS.mainBlue};
+  }
+
+  .deny-btn {
+    background-color: ${COLORS.plus};
+  }
 `;

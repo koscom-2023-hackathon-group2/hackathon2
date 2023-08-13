@@ -1,4 +1,5 @@
 // 잔고 화면
+import { useNavigate } from "react-router-dom";
 
 import {
   AccountListContainer,
@@ -9,7 +10,6 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { AccountBox, AccountBtn } from "../styles/HomeEmotion";
-import { useNavigate } from "react-router-dom";
 
 const Balance = () => {
   const totalPrice = 39050070; // 추후 삭제 예정

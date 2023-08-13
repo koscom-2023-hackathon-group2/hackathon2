@@ -58,9 +58,7 @@ const NewAccount = () => {
     "SC제일은행",
     "국민은행",
     "신한은행",
-    "외환은행",
     "우리은행",
-    "한국시티은행",
   ];
 
   function getStyles(name, personName, theme) {

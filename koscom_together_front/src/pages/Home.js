@@ -1,21 +1,44 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   AccountBox,
   AccountBtn,
   AccountsWrapper,
   AddNewBox,
   HomeWrapper,
+  InvitationWrapper,
   WelcomeBox,
 } from "../styles/HomeEmotion";
 
+import InvitationImg from "../assets/invitation.png";
+
+import Modal from "../components/Modal";
+
 import stockBubble from "../assets/stock_bubble.png";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const newClient = false; // 추후 삭제 예정
 
   const navigate = useNavigate();
+
+  const [invitationModalShow, setInvitationModalShow] = useState(true);
+
   return (
     <>
+      <Modal
+        modalShow={invitationModalShow}
+        setModalShow={setInvitationModalShow}>
+        <InvitationWrapper>
+          <img src={InvitationImg} className="invite-img" alt="invitation" />
+          <div className="group-name">코스콤 47기 동기들</div>
+          <div>초대가 도착했습니다.</div>
+          <div className="flex btn-list">
+            <div className="accept-btn btn">수락</div>
+            <div className="deny-btn btn">거절</div>
+          </div>
+        </InvitationWrapper>
+      </Modal>
       <HomeWrapper>
         {newClient ? (
           <>
@@ -32,7 +55,9 @@ const Home = () => {
           </>
         ) : (
           <>
-            <div className="notoSansKR bold">모임 계좌 목록</div>
+            <div className="notoSansKR bold account-list-title">
+              모임 계좌 목록
+            </div>
             <AccountsWrapper>
               <AccountBox>
                 <div className="account-box-top">
