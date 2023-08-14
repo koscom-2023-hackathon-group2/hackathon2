@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "MEMBER_ACCOUNT")
+@Table(name = "ACCOUNT_INFO")
 @EqualsAndHashCode
 public class AccountInfo extends BaseTimeEntity {
 
@@ -36,12 +36,12 @@ public class AccountInfo extends BaseTimeEntity {
     @Column(name = "SEQ")
     private Long seq;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_seq")
+    @ManyToOne
+    @JoinColumn(name = "memberSeq")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_seq")
+    @ManyToOne
+    @JoinColumn(name = "accountSeq")
     private Account account;
 
     @Column(name = "ACCOUNT_INFO_STATUS")
