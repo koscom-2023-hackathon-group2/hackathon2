@@ -87,16 +87,18 @@ const Home = () => {
             </div>
             <AccountsWrapper>
               {groupList.map((group, idx) => (
-                <AccountBox key={idx}>
+                <AccountBox key={idx} percent={group.stockAsset}>
                   <div className="account-box-top">
                     <div>{group.nickname}</div>
-                    <div>-12%</div>
+                    {/* 수익률 BE 아직 미완성 */}
+                    <div>12%</div>
                   </div>
                   <div className="account-box-bottom">
-                    <AccountBtn onClick={() => navigate("/asset")}>
+                    <AccountBtn onClick={() => navigate(`/asset/${idx}`)}>
                       자산
                     </AccountBtn>
-                    <AccountBtn onClick={() => navigate("/stockHistory")}>
+                    <AccountBtn
+                      onClick={() => navigate(`/stockHistory/${idx}`)}>
                       거래 내역
                     </AccountBtn>
                     <AccountBtn>채우기</AccountBtn>
