@@ -10,7 +10,7 @@ INSERT INTO STOCK_INFO
 (ITEM_NAME, stock_Number, stock_Market, stock_Price, rate_Of_Return)
 VALUES
     ('CJ', '001040', 'KOSPI', 77400, -2.42),
-    ('HD현대',	'001040',	'KOSPI',	77400,	-2.42),
+    ('HD현대',	'267250',	'KOSPI',	61400,	0.00),
     ('KB금융',	'105560',	'KOSPI',	51800,	0.39),
     ('KT',	'030200',	'KOSPI',	32000,	1.25),
     ('LG',	'003550',	'KOSPI',	83200,	-1.08),
