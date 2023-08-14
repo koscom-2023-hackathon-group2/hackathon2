@@ -1,7 +1,6 @@
 package com.koscom.koscom_together_back.controller;
 import java.io.IOException;
 import com.koscom.koscom_together_back.SseConfig.SseEmitters;
-import com.koscom.koscom_together_back.dto.AccountDto;
 import com.koscom.koscom_together_back.dto.InviteDto;
 import com.koscom.koscom_together_back.service.DepositAccountService;
 import com.koscom.koscom_together_back.service.InviteService;
@@ -11,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import com.koscom.koscom_together_back.dto.AccountDto;
 
 @RestController
 @RequiredArgsConstructor
