@@ -127,7 +127,7 @@ export const InvitationWrapper = styled.div`
 
   .btn {
     font-size: 1rem;
-    padding: 5px 10px;
+    padding: 5px 12px;
     color: ${COLORS.white};
     border-radius: 10px;
     cursor: pointer;
