@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/group-account")
 @RequiredArgsConstructor
 public class AccountController {
 
     private final GroupAccountService groupAccountService;
 
-    @PostMapping(value = "/group-account/create")
+    @PostMapping(value = "/create")
     public void createGroupAccount(@RequestHeader("X-MEMBER") String memberId,
                               @RequestBody AccountDto request) throws Exception {
         groupAccountService.createGroupAccount(memberId, request);
     }
+
+
 }
