@@ -19,4 +19,9 @@ public class AccountServiceImpl implements AccountService {
     public Account createAccount(AccountDto request) {
         return accountRepository.save(Account.of(request));
     }
+
+    @Override
+    public Account findAccount(String accountId){
+        return accountRepository.findByFakeAccountId(accountId).orElseThrow();
+    }
 }

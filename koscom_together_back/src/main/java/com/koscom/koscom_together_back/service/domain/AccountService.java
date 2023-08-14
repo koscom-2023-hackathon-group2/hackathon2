@@ -5,4 +5,5 @@ import com.koscom.koscom_together_back.dto.AccountDto;
 
 public interface AccountService {
     Account createAccount(AccountDto request);
+    Account findAccount(String accountId);
 }

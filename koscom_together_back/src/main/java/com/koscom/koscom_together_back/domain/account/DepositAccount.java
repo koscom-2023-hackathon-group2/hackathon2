@@ -1,5 +1,7 @@
 package com.koscom.koscom_together_back.domain.account;
 
+import com.koscom.koscom_together_back.domain.member.Member;
+import com.koscom.koscom_together_back.dto.AccountDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -47,8 +49,11 @@ public class DepositAccount {
         this.memberId = memberId;
     }
 
-    public static DepositAccount of() {
+    public static DepositAccount of(Member member, AccountDto request) {
         return DepositAccount.builder()
+                .accountId(request.getDepositAccountId())
+                .bankType(BankType.valueOf(request.getDepositAccountCode()))
+                .memberId(member.getId())
                 .build();
 
     }
