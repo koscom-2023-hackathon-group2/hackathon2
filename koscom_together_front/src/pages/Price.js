@@ -29,10 +29,12 @@ const Price = () => {
 
   const [stockModalShow, setStockModalShow] = useState(false);
   const [priceModalData, setPriceModalData] = useState(domesticStockLists[0]);
+  const [totalStockData, setTotalStockData] = useState([]);
   const [stockData, setStockData] = useState([]);
+  const [totalETFData, setTotalETFData] = useState([]);
   const [ETFData, setETFData] = useState([]);
 
-  const SearchInputRef = useRef();
+  const searchInputRef = useRef();
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -69,6 +71,8 @@ const Price = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
+    setStockData(totalStockData);
+    setETFData(totalETFData);
     setValue(newValue);
   };
 
@@ -84,15 +88,26 @@ const Price = () => {
 
   const handleSearch = () => {
     console.log("검색!");
-    const input = SearchInputRef.current.value;
-    if (!input) {
-      setStockData(domesticStockLists);
-      return;
+    const input = searchInputRef.current.value;
+    if (value === 0) {
+      if (!input) {
+        setStockData(totalStockData);
+        return;
+      }
+      const newData = totalStockData.filter(
+        (data) => data.stockNumber === input || data.itemName === input
+      );
+      setStockData(newData);
+    } else if (value === 1) {
+      if (!input) {
+        setETFData(totalETFData);
+        return;
+      }
+      const newData = totalETFData.filter(
+        (data) => data.stockNumber === input || data.itemName === input
+      );
+      setETFData(newData);
     }
-    const newData = domesticStockLists.filter(
-      (data) => data.stockNumber === input || data.itemName === input
-    );
-    setStockData(newData);
   };
 
   const getStockList = async () => {
@@ -103,6 +118,7 @@ const Price = () => {
       .then((res) => {
         console.log(res);
         setStockData(res.data);
+        setTotalStockData(res.data);
         return res.data;
       })
       .catch((err) => {
@@ -118,6 +134,7 @@ const Price = () => {
       .then((res) => {
         console.log(res);
         setETFData(res.data);
+        setTotalETFData(res.data);
         return res.data;
       })
       .catch((err) => {
@@ -196,7 +213,7 @@ const Price = () => {
         <SearchBarContainer>
           <SearchInput
             className="flexGrow"
-            ref={SearchInputRef}
+            ref={searchInputRef}
             placeholder="종목명/코드 를 입력해주세요."
           />
           <div className="search-btn" onClick={handleSearch}>
@@ -238,7 +255,7 @@ const Price = () => {
                   name={stock.itemName}
                   price={stock.stockPrice}
                   percent={stock.rateOfReturn}
-                  onClickETF={() => onClickETF(idx)}
+                  onClickStock={() => onClickETF(idx)}
                 />
               ))}
             </StockBox>

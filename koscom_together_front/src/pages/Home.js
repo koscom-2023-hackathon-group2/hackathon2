@@ -20,8 +20,6 @@ import axios from "axios";
 import { API_URL } from "../config";
 
 const Home = () => {
-  const newClient = false; // 추후 삭제 예정
-
   const navigate = useNavigate();
 
   const [invitationModalShow, setInvitationModalShow] = useState(false);
@@ -67,7 +65,7 @@ const Home = () => {
         </InvitationWrapper>
       </Modal>
       <HomeWrapper>
-        {newClient ? (
+        {groupList.length === 0 ? (
           <>
             <WelcomeBox>
               <img src={stockBubble} className="welcomeImg" alt="stockBubble" />
