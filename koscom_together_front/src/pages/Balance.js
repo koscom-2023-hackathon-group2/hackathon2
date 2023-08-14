@@ -62,7 +62,7 @@ const Balance = () => {
               <AccountBtn>채우기</AccountBtn>
             </div>
           </AccountBox>
-          <AccountBox percent={22}>
+          {/* <AccountBox percent={22}>
             <div className="account-box-top">
               <div>가족 주식 계좌</div>
               <div>36%</div>
@@ -87,7 +87,7 @@ const Balance = () => {
               </AccountBtn>
               <AccountBtn>채우기</AccountBtn>
             </div>
-          </AccountBox>
+          </AccountBox> */}
         </AccountListContainer>
       </BalanceWrapper>
     </>

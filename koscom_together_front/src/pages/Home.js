@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -16,13 +16,40 @@ import InvitationImg from "../assets/invitation.png";
 import Modal from "../components/Modal";
 
 import stockBubble from "../assets/stock_bubble.png";
+import axios from "axios";
+import { API_URL } from "../config";
 
 const Home = () => {
   const newClient = false; // 추후 삭제 예정
 
   const navigate = useNavigate();
 
-  const [invitationModalShow, setInvitationModalShow] = useState(true);
+  const [invitationModalShow, setInvitationModalShow] = useState(false);
+  const [groupList, setGroupList] = useState([]);
+
+  const getGroupAccountList = async () => {
+    await axios
+      .get(`${API_URL}/group-account/${"jiye1"}`, {
+        headers: {},
+      })
+      .then((res) => {
+        console.log(res.data);
+        setGroupList(res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    async function getAndSetGroupAccountList() {
+      const data = await getGroupAccountList();
+      console.log(data);
+    }
+
+    getAndSetGroupAccountList();
+  }, []);
 
   return (
     <>
@@ -59,21 +86,23 @@ const Home = () => {
               모임 계좌 목록
             </div>
             <AccountsWrapper>
-              <AccountBox>
-                <div className="account-box-top">
-                  <div>짱구네 주식모임</div>
-                  <div>-12%</div>
-                </div>
-                <div className="account-box-bottom">
-                  <AccountBtn onClick={() => navigate("/asset")}>
-                    자산
-                  </AccountBtn>
-                  <AccountBtn onClick={() => navigate("/stockHistory")}>
-                    거래 내역
-                  </AccountBtn>
-                  <AccountBtn>채우기</AccountBtn>
-                </div>
-              </AccountBox>
+              {groupList.map((group, idx) => (
+                <AccountBox key={idx}>
+                  <div className="account-box-top">
+                    <div>{group.nickname}</div>
+                    <div>-12%</div>
+                  </div>
+                  <div className="account-box-bottom">
+                    <AccountBtn onClick={() => navigate("/asset")}>
+                      자산
+                    </AccountBtn>
+                    <AccountBtn onClick={() => navigate("/stockHistory")}>
+                      거래 내역
+                    </AccountBtn>
+                    <AccountBtn>채우기</AccountBtn>
+                  </div>
+                </AccountBox>
+              ))}
             </AccountsWrapper>
           </>
         )}
