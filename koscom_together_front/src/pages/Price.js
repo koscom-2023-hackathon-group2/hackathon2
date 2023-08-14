@@ -238,7 +238,7 @@ const Price = () => {
                   name={stock.itemName}
                   price={stock.stockPrice}
                   percent={stock.rateOfReturn}
-                  onClickETF={() => onClickETF(idx)}
+                  onClickStock={() => onClickETF(idx)}
                 />
               ))}
             </StockBox>

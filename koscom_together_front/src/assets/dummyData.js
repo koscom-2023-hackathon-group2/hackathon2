@@ -16,8 +16,28 @@ export const dummyStocks = [
 ];
 
 export const dummyStockAssets = [
-  { name: "현대차", cnt: 5, percent: -0.42 },
-  { name: "삼성전자", cnt: 10, percent: 2.12 },
+  {
+    cnt: 5,
+    createdAt: null,
+    updatedAt: null,
+    seq: 1,
+    itemName: "CJ",
+    stockNumber: "001040",
+    stockMarket: "KOSPI",
+    stockPrice: 77400,
+    rateOfReturn: -2.42,
+  },
+  {
+    cnt: 10,
+    createdAt: null,
+    updatedAt: null,
+    seq: 3,
+    itemName: "KB금융",
+    stockNumber: "105560",
+    stockMarket: "KOSPI",
+    stockPrice: 51800,
+    rateOfReturn: 0.39,
+  },
 ];
 
 export const dummyHistory = [

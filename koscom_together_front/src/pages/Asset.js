@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 
 import {
   AssetGraphContainer,
+  AssetInfoBox,
   AssetTitleContainer,
   AssetWrapper,
   StockAssetContainer,
@@ -28,6 +29,8 @@ import {
 } from "../styles/PriceEmotion";
 import SingleAsset from "../components/SingleAsset";
 import SingleMember from "../components/SingleMember";
+import axios from "axios";
+import { API_URL } from "../config";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -41,6 +44,8 @@ const Asset = () => {
 
   const [stockModalShow, setStockModalShow] = useState(false);
   const [inviteModalShow, setInviteModalShow] = useState(false);
+
+  const [priceModalData, setPriceModalData] = useState(dummyStockAssets[0]);
 
   const data = {
     labels: ["현금", "주식"],
@@ -93,7 +98,8 @@ const Asset = () => {
     setValue(newValue);
   };
 
-  const onClickStock = () => {
+  const onClickStock = (idx) => {
+    setPriceModalData(stocks[idx]);
     setStockModalShow(true);
   };
 
@@ -102,7 +108,17 @@ const Asset = () => {
   };
 
   const handleInvitation = () => {
-    alert("구성원 초대가 완료되었습니다.");
+    axios
+      .post(`${API_URL}/invite`, {
+        host: "jiye1",
+        account: "52b80f53-db87-4cdf-a3ea-c6a01cf8370f",
+        invitee: "jiye2",
+      })
+      .then((res) => {
+        console.log(res);
+        alert("구성원 초대가 완료되었습니다.");
+      })
+      .catch((err) => {});
   };
 
   return (
@@ -125,16 +141,41 @@ const Asset = () => {
       </Modal>
       <Modal modalShow={stockModalShow} setModalShow={setStockModalShow}>
         <StockModalWrapper>
-          <div className="stock-name">현대차</div>
+          <div className="stock-name">{priceModalData.itemName}</div>
           <div className="stock-info">
-            <span className="stock-num">005380</span>|
-            <span className="stock-belong">KOSPI200</span>
+            <span className="stock-num">{priceModalData.stockNumber}</span>|
+            <span className="stock-belong">{priceModalData.stockMarket}</span>
           </div>
           <div className="flex">
-            <span className="stock-price minus">191,700원</span>
+            {priceModalData.rateOfReturn < 0 ? (
+              <span className="stock-price minus">
+                {priceModalData.stockPrice.toLocaleString()}원
+              </span>
+            ) : priceModalData.rateOfReturn === 0 ? (
+              <span className="stock-price none">
+                {priceModalData.stockPrice.toLocaleString()}원
+              </span>
+            ) : (
+              <span className="stock-price plus">
+                {priceModalData.stockPrice.toLocaleString()}원
+              </span>
+            )}
             <span className="flex">
-              <ArrowDropDownIcon className="minus" />
-              <span className="minus">0.42%</span>
+              {priceModalData.rateOfReturn < 0 ? (
+                <>
+                  <ArrowDropDownIcon className="minus" />
+                  <span className="minus">
+                    {-1 * priceModalData.rateOfReturn}%
+                  </span>
+                </>
+              ) : priceModalData.rateOfReturn === 0 ? (
+                <></>
+              ) : (
+                <>
+                  <ArrowDropUpIcon className="plus" />
+                  <span className="plus">{priceModalData.rateOfReturn}%</span>
+                </>
+              )}
             </span>
           </div>
           <div className="flex number-input-box">
@@ -161,6 +202,14 @@ const Asset = () => {
         <AssetGraphContainer>
           <Doughnut data={data} />
         </AssetGraphContainer>
+        <AssetInfoBox>
+          <div>
+            <span className="bold">현금:</span> {cashAmount.toLocaleString()}원
+          </div>
+          <div>
+            <span className="bold">주식:</span> {stockAmount.toLocaleString()}원
+          </div>
+        </AssetInfoBox>
         <StockAssetContainer>
           <Box sx={{ width: "100%" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -176,10 +225,10 @@ const Asset = () => {
             <CustomTabPanel value={value} index={0}>
               {stocks.map((stock, idx) => (
                 <SingleAsset
-                  name={stock.name}
+                  name={stock.itemName}
                   cnt={stock.cnt}
-                  percent={stock.percent}
-                  onClickStock={onClickStock}
+                  percent={stock.rateOfReturn}
+                  onClickStock={() => onClickStock(idx)}
                 />
               ))}
             </CustomTabPanel>

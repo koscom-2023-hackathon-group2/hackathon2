@@ -60,5 +60,11 @@ export const StockAssetContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  padding-top: 1rem;
+`;
+
+export const AssetInfoBox = styled.div`
   padding-top: 1.5rem;
+  font-family: ${FONTS.NotoSansKR};
+  text-align: right;
 `;
