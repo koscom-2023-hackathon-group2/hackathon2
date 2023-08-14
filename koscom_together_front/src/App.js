@@ -12,7 +12,41 @@ import SubLayout from "./components/SubLayout";
 import Asset from "./pages/Asset";
 import NewAccount from "./pages/NewAccount";
 
+import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
+import { useEffect } from "react";
+import { API_URL } from "./config";
+import axios from "axios";
+
 function App() {
+  // const EventSource = EventSourcePolyfill || NativeEventSource;
+
+  // useEffect(() => {
+  //   axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
+  //   let eventSource;
+  //   const fetchSSE = async () => {
+  //     try {
+  //       eventSource = new EventSource(`${API_URL}/invite?host=jiye2`, {
+  //         headers: {
+  //           "Access-Control-Allow-Origin": true,
+  //         },
+  //         withCredentials: true,
+  //       });
+
+  //       /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
+  //       eventSource.onmessage = async (event) => {
+  //         const res = await event.data;
+  //         console.log(res);
+  //       };
+
+  //       /* EVENTSOURCE ONERROR ------------------------------------------------------ */
+  //       eventSource.onerror = async (event) => {
+  //         if (!event.error.message.includes("No activity")) eventSource.close();
+  //       };
+  //     } catch (error) {}
+  //   };
+  //   fetchSSE();
+  // });
+
   return (
     <BrowserRouter>
       <div className="App">

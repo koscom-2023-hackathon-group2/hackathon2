@@ -68,6 +68,7 @@ export const SinglePriceWrapper = styled.div`
   .stock-percent {
     padding-left: 1rem;
     display: flex;
+    width: 5rem;
   }
 
   .minus {
@@ -76,6 +77,13 @@ export const SinglePriceWrapper = styled.div`
 
   .plus {
     color: ${COLORS.plus};
+  }
+
+  .zero {
+    width: 100%;
+    color: ${COLORS.gray100};
+    display: flex;
+    justify-content: right;
   }
 `;
 
@@ -113,6 +121,10 @@ export const StockModalWrapper = styled.div`
 
   .plus {
     color: ${COLORS.plus};
+  }
+
+  .none {
+    color: ${COLORS.gray100};
   }
 
   .number-input-box {
@@ -187,5 +199,14 @@ export const InviteModalWrapper = styled.div`
     &:hover {
       box-shadow: 0 5px 10px rgba(33, 33, 33, 0.3);
     }
+  }
+`;
+
+export const StockBox = styled.div`
+  height: 35rem;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;

@@ -7,7 +7,7 @@ const SinglePrice = ({ name, price, percent, onClickStock }) => {
   return (
     <>
       <SinglePriceWrapper onClick={onClickStock}>
-        <div>{name}</div>
+        <div className="ellipsis">{name}</div>
         <div className="stock-info-right">
           <div>{price.toLocaleString()}</div>
           <div className="stock-percent">
@@ -15,6 +15,10 @@ const SinglePrice = ({ name, price, percent, onClickStock }) => {
               <>
                 <ArrowDropDownIcon className="minus" />
                 <span className="minus">{-1 * percent}%</span>
+              </>
+            ) : percent === 0 ? (
+              <>
+                <div className="zero">0</div>
               </>
             ) : (
               <>

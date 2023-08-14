@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -14,18 +14,25 @@ import {
   PriceWrapper,
   SearchBarContainer,
   SearchInput,
+  StockBox,
   StockModalWrapper,
 } from "../styles/PriceEmotion";
 
-import { dummyStocks } from "../assets/dummyData";
+import { domesticStockLists, dummyStocks } from "../assets/dummyData";
 import SinglePrice from "../components/SinglePrice";
 import Modal from "../components/Modal";
+import axios from "axios";
+import { API_URL } from "../config";
 
 const Price = () => {
-  const stocks = dummyStocks; // 추후 삭제 예정
+  // const stocks = dummyStocks; // 추후 삭제 예정
 
   const [stockModalShow, setStockModalShow] = useState(false);
-  const [priceModalData, setPriceModalData] = useState(stocks[0]);
+  const [priceModalData, setPriceModalData] = useState(domesticStockLists[0]);
+  const [stockData, setStockData] = useState([]);
+  const [ETFData, setETFData] = useState([]);
+
+  const SearchInputRef = useRef();
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -66,39 +73,106 @@ const Price = () => {
   };
 
   const onClickStock = (idx) => {
-    setPriceModalData(stocks[idx]);
+    setPriceModalData(stockData[idx]);
     setStockModalShow(true);
   };
+
+  const handleSearch = () => {
+    console.log("검색!");
+    const input = SearchInputRef.current.value;
+    if (!input) {
+      setStockData(domesticStockLists);
+      return;
+    }
+    const newData = domesticStockLists.filter(
+      (data) => data.stockNumber === input || data.itemName === input
+    );
+    setStockData(newData);
+  };
+
+  const getStockList = async () => {
+    await axios
+      .get(`${API_URL}/domesticStockList`, {
+        headers: {},
+      })
+      .then((res) => {
+        console.log(res);
+        setStockData(res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getETFList = async () => {
+    await axios
+      .get(`${API_URL}/ETFList`, {
+        headers: {},
+      })
+      .then((res) => {
+        console.log(res);
+        setETFData(res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    async function getAndSetStockList() {
+      const data = await getStockList();
+      console.log(data);
+      // setPriceModalData();
+    }
+
+    async function getAndSetETFList() {
+      const data = await getETFList();
+      console.log(data);
+    }
+
+    getAndSetStockList();
+    getAndSetETFList();
+  }, []);
 
   return (
     <>
       <Modal modalShow={stockModalShow} setModalShow={setStockModalShow}>
         <StockModalWrapper>
-          <div className="stock-name">{priceModalData.name}</div>
+          <div className="stock-name">{priceModalData.itemName}</div>
           <div className="stock-info">
-            <span className="stock-num">{priceModalData.code}</span>|
-            <span className="stock-belong">{priceModalData.group}</span>
+            <span className="stock-num">{priceModalData.stockNumber}</span>|
+            <span className="stock-belong">{priceModalData.stockMarket}</span>
           </div>
           <div className="flex">
-            {priceModalData.percent < 0 ? (
+            {priceModalData.rateOfReturn < 0 ? (
               <span className="stock-price minus">
-                {priceModalData.price.toLocaleString()}원
+                {priceModalData.stockPrice.toLocaleString()}원
+              </span>
+            ) : priceModalData.rateOfReturn === 0 ? (
+              <span className="stock-price none">
+                {priceModalData.stockPrice.toLocaleString()}원
               </span>
             ) : (
               <span className="stock-price plus">
-                {priceModalData.price.toLocaleString()}원
+                {priceModalData.stockPrice.toLocaleString()}원
               </span>
             )}
             <span className="flex">
-              {priceModalData.percent < 0 ? (
+              {priceModalData.rateOfReturn < 0 ? (
                 <>
                   <ArrowDropDownIcon className="minus" />
-                  <span className="minus">{-1 * priceModalData.percent}%</span>
+                  <span className="minus">
+                    {-1 * priceModalData.rateOfReturn}%
+                  </span>
                 </>
+              ) : priceModalData.rateOfReturn === 0 ? (
+                <></>
               ) : (
                 <>
                   <ArrowDropUpIcon className="plus" />
-                  <span className="plus">{priceModalData.percent}%</span>
+                  <span className="plus">{priceModalData.rateOfReturn}%</span>
                 </>
               )}
             </span>
@@ -117,9 +191,10 @@ const Price = () => {
         <SearchBarContainer>
           <SearchInput
             className="flexGrow"
+            ref={SearchInputRef}
             placeholder="종목명/코드 를 입력해주세요."
           />
-          <div className="search-btn">
+          <div className="search-btn" onClick={handleSearch}>
             <SearchIcon />
           </div>
         </SearchBarContainer>
@@ -137,36 +212,40 @@ const Price = () => {
           </Box>
           {/* 국내 주식 Tab */}
           <CustomTabPanel value={value} index={0}>
-            {stocks.map((stock, idx) => (
-              <SinglePrice
-                key={idx}
-                name={stock.name}
-                price={stock.price}
-                percent={stock.percent}
-                onClickStock={() => onClickStock(idx)}
-              />
-            ))}
+            <StockBox>
+              {stockData.map((stock, idx) => (
+                <SinglePrice
+                  key={idx}
+                  name={stock.itemName}
+                  price={stock.stockPrice}
+                  percent={stock.rateOfReturn}
+                  onClickStock={() => onClickStock(idx)}
+                />
+              ))}
+            </StockBox>
           </CustomTabPanel>
-          {/* 해외 주식 Tab */}
+          {/* ETF Tab */}
           <CustomTabPanel value={value} index={1}>
-            {stocks.map((stock, idx) => (
-              <SinglePrice
-                key={idx}
-                name={stock.name}
-                price={stock.price}
-                percent={stock.percent}
-                onClickStock={() => onClickStock(idx)}
-              />
-            ))}
+            <StockBox>
+              {ETFData.map((stock, idx) => (
+                <SinglePrice
+                  key={idx}
+                  name={stock.itemName}
+                  price={stock.stockPrice}
+                  percent={stock.rateOfReturn}
+                  onClickStock={() => onClickStock(idx)}
+                />
+              ))}
+            </StockBox>
           </CustomTabPanel>
           {/* 보유 주식 Tab */}
           <CustomTabPanel value={value} index={2}>
-            {stocks.slice(0, 1).map((stock, idx) => (
+            {stockData.slice(0, 2).map((stock, idx) => (
               <SinglePrice
                 key={idx}
-                name={stock.name}
-                price={stock.price}
-                percent={stock.percent}
+                name={stock.itemName}
+                price={stock.stockPrice}
+                percent={stock.rateOfReturn}
                 onClickStock={() => onClickStock(idx)}
               />
             ))}

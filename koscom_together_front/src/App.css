@@ -59,3 +59,9 @@ body {
 .flexGrow {
   flex-grow: 1;
 }
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
