@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
@@ -24,13 +23,10 @@ public class InviteServiceImpl implements InviteService {
 
     @Override
     public void addInvitee(final String accountId, final String inviteeId) {
-        //log.info("accountId = {}, inviteeId = {}", accountId, inviteeId);
         // 모임 계좌 가져오기
         final Account account = accountService.findAccount(accountId);
-        //log.info("account = {}", account.getNickname());
         // invitee 가져오기
         final Member member = memberService.findMember(inviteeId);
-        //log.info("member = {}", member.getId());
         // 모임 계좌와 invitee 정보를 추가.
         accountInfoService.createAccountInfo(member, account);
     }

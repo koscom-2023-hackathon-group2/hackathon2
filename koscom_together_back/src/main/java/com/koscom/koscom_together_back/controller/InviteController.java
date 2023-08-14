@@ -1,19 +1,18 @@
 package com.koscom.koscom_together_back.controller;
 import java.io.IOException;
-import com.koscom.koscom_together_back.SseConfig.SseEmitters;
+import com.koscom.koscom_together_back.configuration.SseEmitters;
 import com.koscom.koscom_together_back.dto.InviteDto;
 import com.koscom.koscom_together_back.service.DepositAccountService;
 import com.koscom.koscom_together_back.service.InviteService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
-@Slf4j
 public class InviteController {
     private final SseEmitters sseEmitters;
     private final InviteService inviteService;
@@ -48,13 +47,6 @@ public class InviteController {
     @PostMapping("/invite_agree")
     public ResponseEntity<Void> invite_agree(@RequestBody InviteDto inviteDto){
         if(inviteDto.getAgree().equals("yes")){
-            /*System.out.println("!!!yes");
-            System.out.println("inviteDto = ");
-            System.out.println(inviteDto.getAccount());
-            System.out.println(inviteDto.getInvitee());
-            System.out.println(inviteDto.getDepositAccount().getNickName());
-            System.out.println(inviteDto.getDepositAccount().getDepositAccountCode());
-            System.out.println(inviteDto.getDepositAccount().getDepositAccountId());*/
             inviteService.addInvitee(inviteDto.getAccount(), inviteDto.getInvitee());
             depositAccountService.addDepositAccount(inviteDto.getInvitee(), inviteDto.getDepositAccount());
         }

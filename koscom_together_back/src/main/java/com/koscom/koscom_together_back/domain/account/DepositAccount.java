@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,7 @@ public class DepositAccount {
     private Long seq;
 
     @Column(name = "BANK_TYPE")
+    @Enumerated(EnumType.STRING)
     private BankType bankType;
 
     @Column(name = "ACCOUNT_ID")

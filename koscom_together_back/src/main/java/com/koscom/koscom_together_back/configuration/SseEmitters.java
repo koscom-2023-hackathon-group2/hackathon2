@@ -1,4 +1,4 @@
-package com.koscom.koscom_together_back.SseConfig;
+package com.koscom.koscom_together_back.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -41,11 +41,7 @@ public class SseEmitters {
     }
 
     // send invite event to invitee
-<<<<<<< HEAD
     public void invite(String hostId, String account, String inviteeId) {
-=======
-    public void invite(String hostId, int account, String inviteeId) {
->>>>>>> origin/FEAT-13
         log.info("send invite event");
         SseEmitter emitter;
         // find invitee's sse emitter
