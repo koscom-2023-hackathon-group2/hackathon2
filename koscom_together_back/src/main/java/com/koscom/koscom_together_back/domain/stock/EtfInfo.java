@@ -1,26 +1,22 @@
 package com.koscom.koscom_together_back.domain.stock;
 
-import com.koscom.koscom_together_back.domain.accountInfo.AccountInfo;
 import com.koscom.koscom_together_back.domain.base.BaseTimeEntity;
 import com.koscom.koscom_together_back.dto.AccountDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * @author          : yjy
  * @date            : 2023/08/14
- * @description     : 국내 주식 entity
+ * @description     : ETF entity
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "StockInfo")
+@Table(name = "ETF_INFO")
 @EqualsAndHashCode
-public class StockInfo extends BaseTimeEntity {
+public class EtfInfo extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +44,7 @@ public class StockInfo extends BaseTimeEntity {
     private double rateOfReturn;
 
     @Builder
-    public StockInfo(String itemName, String stockNumber, String stockMarket, int stockPrice, double rateOfReturn) {
+    public EtfInfo(String itemName, String stockNumber, String stockMarket, int stockPrice, double rateOfReturn) {
         this.itemName = itemName;
         this.stockNumber = stockNumber;
         this.stockMarket = stockMarket;
@@ -56,8 +52,8 @@ public class StockInfo extends BaseTimeEntity {
         this.rateOfReturn = rateOfReturn;
     }
 
-    public static StockInfo of(AccountDto request) {
-        return StockInfo.builder()
+    public static EtfInfo of(AccountDto request) {
+        return EtfInfo.builder()
                 .build();
     }
 }
