@@ -77,6 +77,11 @@ const Price = () => {
     setStockModalShow(true);
   };
 
+  const onClickETF = (idx) => {
+    setPriceModalData(ETFData[idx]);
+    setStockModalShow(true);
+  };
+
   const handleSearch = () => {
     console.log("검색!");
     const input = SearchInputRef.current.value;
@@ -233,7 +238,7 @@ const Price = () => {
                   name={stock.itemName}
                   price={stock.stockPrice}
                   percent={stock.rateOfReturn}
-                  onClickStock={() => onClickStock(idx)}
+                  onClickETF={() => onClickETF(idx)}
                 />
               ))}
             </StockBox>

@@ -18,34 +18,58 @@ import { API_URL } from "./config";
 import axios from "axios";
 
 function App() {
-  // const EventSource = EventSourcePolyfill || NativeEventSource;
+  const EventSource = EventSourcePolyfill || NativeEventSource;
 
-  // useEffect(() => {
-  //   axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
-  //   let eventSource;
-  //   const fetchSSE = async () => {
-  //     try {
-  //       eventSource = new EventSource(`${API_URL}/invite?host=jiye2`, {
-  //         headers: {
-  //           "Access-Control-Allow-Origin": true,
-  //         },
-  //         withCredentials: true,
-  //       });
+  useEffect(() => {
+    let eventSource;
+    // const fetchSSE = async () => {
+    //   try {
+    //     eventSource = new EventSource(`${API_URL}/invite?host=jiye2`, {
+    //       headers: {
+    //         "Access-Control-Allow-Origin": true,
+    //       },
+    //       withCredentials: true,
+    //     });
 
-  //       /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
-  //       eventSource.onmessage = async (event) => {
-  //         const res = await event.data;
-  //         console.log(res);
-  //       };
+    //     /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
+    //     eventSource.onmessage = async (event) => {
+    //       const res = await event.data;
+    //       console.log(res);
+    //     };
 
-  //       /* EVENTSOURCE ONERROR ------------------------------------------------------ */
-  //       eventSource.onerror = async (event) => {
-  //         if (!event.error.message.includes("No activity")) eventSource.close();
-  //       };
-  //     } catch (error) {}
-  //   };
-  //   fetchSSE();
-  // });
+    //     /* EVENTSOURCE ONERROR ------------------------------------------------------ */
+    //     eventSource.onerror = async (event) => {
+    //       if (!event.error.message.includes("No activity")) eventSource.close();
+    //     };
+    //   } catch (error) {}
+    // };
+
+    const fetchSSE = async () => {
+      const sse = new EventSourcePolyfill(`${API_URL}/invite?host=jiye1`);
+
+      console.log(sse);
+      // dummy data
+      sse.addEventListener("connect", (e) => {
+        const { data: receivedConnectData } = e;
+
+        console.log("connect event data: ", receivedConnectData);
+      });
+
+      sse.onmessage = (e) => {
+        console.log(e);
+      };
+
+      console.log(sse);
+      sse.addEventListener("invite", (e) => {
+        const { data: receivedCount, data: receive2 } = e;
+
+        // setData(JSON.parse(receivedSections));
+        console.log("count event data", receivedCount, receive2);
+        // setCount(receivedCount);
+      });
+    };
+    fetchSSE();
+  });
 
   return (
     <BrowserRouter>
@@ -59,8 +83,8 @@ function App() {
           </Route>
           <Route element={<SubLayout />}>
             <Route path="/new" element={<NewAccount />} />
-            <Route path="/asset" element={<Asset />} />
-            <Route path="/stockHistory" element={<StockHistory />} />
+            <Route path="/asset/:no" element={<Asset />} />
+            <Route path="/stockHistory/:no" element={<StockHistory />} />
           </Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
