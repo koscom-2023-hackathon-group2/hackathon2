@@ -39,6 +39,12 @@ export const NewAccountDescBox = styled.div`
     font-weight: 700;
     padding-bottom: 1rem;
   }
+
+  .checkBox {
+    padding-top: 1rem;
+    justify-content: center;
+    width: 100%;
+  }
 `;
 
 export const NewAccountContentWrapper = styled.div`
@@ -51,13 +57,16 @@ export const NewAccountContentWrapper = styled.div`
     font-weight: 700;
     padding-bottom: 0.5rem;
   }
+
+  .title-container {
+    padding-top: 1.5rem;
+  }
 `;
 
 export const ConnectingAccountContainer = styled.div`
   display: flex;
   flex-direction: column;
   font-family: ${FONTS.NotoSansKR};
-  padding-top: 1.5rem;
 
   .input-container {
     display: flex;
