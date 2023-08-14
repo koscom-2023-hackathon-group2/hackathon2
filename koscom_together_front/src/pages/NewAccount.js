@@ -1,5 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
 
 import {
   ConnectingAccountContainer,
@@ -18,10 +20,11 @@ import { SearchInput } from "../styles/PriceEmotion";
 
 import { useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import { API_URL } from "../config";
 
 const steps = ["약관 동의", "계좌 정보 입력"];
 
@@ -29,9 +32,45 @@ const NewAccount = () => {
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = useState(0);
+  const [checked, setChecked] = useState(false);
+  const [bank, setBank] = useState("");
+
+  const groupNameRef = useRef();
+  const accNumRef = useRef();
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 0 && checked) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else if (activeStep === 1 && checked) {
+      // 계좌 정보 입력하고나면
+      console.log(groupNameRef.current.value);
+      console.log(accNumRef.current.value);
+      console.log(bank);
+      console.log(bankCode[names.indexOf(bank)]);
+
+      axios
+        .post(
+          `${API_URL}/group-account/create`,
+          {
+            nickName: groupNameRef.current.value,
+            depositAccountCode: bankCode[names.indexOf(bank)],
+            depositAccountId: accNumRef.current.value,
+          },
+          {
+            headers: {
+              "X-MEMBER": "jiye1",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log("계좌 생성이 완료되었습니다.");
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        })
+        .catch((err) => {});
+    } else if (!checked) {
+      alert("약관 동의는 필수입니다.");
+    }
   };
 
   const handleBack = () => {
@@ -40,6 +79,10 @@ const NewAccount = () => {
 
   const handleFinish = () => {
     navigate("/");
+  };
+
+  const handleCheckBoxChange = () => {
+    setChecked(!checked);
   };
 
   const ITEM_HEIGHT = 48;
@@ -61,6 +104,8 @@ const NewAccount = () => {
     "우리은행",
   ];
 
+  const bankCode = ["HN", "SC", "KB", "SH", "WR"];
+
   function getStyles(name, personName, theme) {
     return {
       fontWeight:
@@ -74,7 +119,11 @@ const NewAccount = () => {
     return (
       <NewAccountDescBox>
         <div className="desc-title">모임 계좌 약관 동의</div>
-        <div>약관 동의 내용</div>
+        <div>약관 동의 내용 (필수)</div>
+        <div className="flex checkBox">
+          <Checkbox checked={checked} onChange={handleCheckBoxChange} />
+          <div>약관에 동의합니다.</div>
+        </div>
       </NewAccountDescBox>
     );
   };
@@ -82,17 +131,13 @@ const NewAccount = () => {
   const StepTwoContent = () => {
     return (
       <NewAccountContentWrapper>
-        <div className="flexColumn">
-          <div className="content-title">모임 계좌명</div>
-          <SearchInput placeholder="코스콤 47기 동기들" />
-        </div>
         <ConnectingAccountContainer>
           <div className="content-title">연결 계좌</div>
           <div>본인 명의의 계좌를 등록해주세요.</div>
           <div className="input-container">
             <FormControl sx={{ width: 318, paddingBottom: 1 }}>
               <Select
-                multiple
+                // multiple
                 displayEmpty
                 value={personName}
                 onChange={handleChange}
@@ -102,7 +147,7 @@ const NewAccount = () => {
                     return <em>은행 선택</em>;
                   }
 
-                  return selected.join(", ");
+                  return selected;
                 }}
                 MenuProps={MenuProps}
                 inputProps={{ "aria-label": "Without label" }}>
@@ -119,9 +164,13 @@ const NewAccount = () => {
                 ))}
               </Select>
             </FormControl>
-            <SearchInput placeholder="3333-01-239843" />
+            <SearchInput ref={accNumRef} placeholder="3333-01-239843" />
           </div>
         </ConnectingAccountContainer>
+        <div className="flexColumn title-container">
+          <div className="content-title">모임 계좌명</div>
+          <SearchInput ref={groupNameRef} placeholder="코스콤 47기 동기들" />
+        </div>
       </NewAccountContentWrapper>
     );
   };
@@ -130,6 +179,7 @@ const NewAccount = () => {
   const [personName, setPersonName] = useState([]);
 
   const handleChange = (event) => {
+    setBank(event.target.value);
     const {
       target: { value },
     } = event;
