@@ -1,6 +1,7 @@
 package com.koscom.koscom_together_back.service;
 
 import com.koscom.koscom_together_back.domain.account.Account;
+import com.koscom.koscom_together_back.domain.account.AccountInfoStatus;
 import com.koscom.koscom_together_back.domain.member.Member;
 import com.koscom.koscom_together_back.dto.AccountDto;
 import com.koscom.koscom_together_back.service.domain.AccountInfoService;
@@ -28,6 +29,6 @@ public class InviteServiceImpl implements InviteService {
         // invitee 가져오기
         final Member member = memberService.findMember(inviteeId);
         // 모임 계좌와 invitee 정보를 추가.
-        accountInfoService.createAccountInfo(member, account);
+        accountInfoService.createAccountInfo(member, account, AccountInfoStatus.NORMAL);
     }
 }

@@ -2,7 +2,7 @@ package com.koscom.koscom_together_back.controller;
 import java.io.IOException;
 import com.koscom.koscom_together_back.configuration.SseEmitters;
 import com.koscom.koscom_together_back.dto.InviteDto;
-import com.koscom.koscom_together_back.service.DepositAccountService;
+import com.koscom.koscom_together_back.service.domain.DepositAccountService;
 import com.koscom.koscom_together_back.service.InviteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

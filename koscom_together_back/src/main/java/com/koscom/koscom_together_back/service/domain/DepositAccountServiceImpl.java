@@ -1,13 +1,7 @@
-package com.koscom.koscom_together_back.service;
+package com.koscom.koscom_together_back.service.domain;
 
-import com.koscom.koscom_together_back.domain.account.Account;
-import com.koscom.koscom_together_back.domain.account.DepositAccount;
 import com.koscom.koscom_together_back.domain.member.Member;
 import com.koscom.koscom_together_back.dto.AccountDto;
-import com.koscom.koscom_together_back.service.domain.AccountInfoService;
-import com.koscom.koscom_together_back.service.domain.AccountService;
-import com.koscom.koscom_together_back.service.domain.DepositAccountInfoService;
-import com.koscom.koscom_together_back.service.domain.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
