@@ -25,6 +25,7 @@ const Price = () => {
   const stocks = dummyStocks; // 추후 삭제 예정
 
   const [stockModalShow, setStockModalShow] = useState(false);
+  const [priceModalData, setPriceModalData] = useState(stocks[0]);
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -64,7 +65,8 @@ const Price = () => {
     setValue(newValue);
   };
 
-  const onClickStock = () => {
+  const onClickStock = (idx) => {
+    setPriceModalData(stocks[idx]);
     setStockModalShow(true);
   };
 
@@ -72,16 +74,33 @@ const Price = () => {
     <>
       <Modal modalShow={stockModalShow} setModalShow={setStockModalShow}>
         <StockModalWrapper>
-          <div className="stock-name">현대차</div>
+          <div className="stock-name">{priceModalData.name}</div>
           <div className="stock-info">
-            <span className="stock-num">005380</span>|
-            <span className="stock-belong">KOSPI200</span>
+            <span className="stock-num">{priceModalData.code}</span>|
+            <span className="stock-belong">{priceModalData.group}</span>
           </div>
           <div className="flex">
-            <span className="stock-price minus">191,700원</span>
+            {priceModalData.percent < 0 ? (
+              <span className="stock-price minus">
+                {priceModalData.price.toLocaleString()}원
+              </span>
+            ) : (
+              <span className="stock-price plus">
+                {priceModalData.price.toLocaleString()}원
+              </span>
+            )}
             <span className="flex">
-              <ArrowDropDownIcon className="minus" />
-              <span className="minus">0.42%</span>
+              {priceModalData.percent < 0 ? (
+                <>
+                  <ArrowDropDownIcon className="minus" />
+                  <span className="minus">{-1 * priceModalData.percent}%</span>
+                </>
+              ) : (
+                <>
+                  <ArrowDropUpIcon className="plus" />
+                  <span className="plus">{priceModalData.percent}%</span>
+                </>
+              )}
             </span>
           </div>
           <div className="flex number-input-box">
@@ -112,7 +131,7 @@ const Price = () => {
               onChange={handleChange}
               aria-label="basic tabs example">
               <Tab label="국내 주식" {...a11yProps(0)} />
-              <Tab label="해외 주식" {...a11yProps(1)} />
+              <Tab label="ETF" {...a11yProps(1)} />
               <Tab label="보유 주식" {...a11yProps(2)} />
             </Tabs>
           </Box>
@@ -120,10 +139,11 @@ const Price = () => {
           <CustomTabPanel value={value} index={0}>
             {stocks.map((stock, idx) => (
               <SinglePrice
+                key={idx}
                 name={stock.name}
                 price={stock.price}
                 percent={stock.percent}
-                onClickStock={onClickStock}
+                onClickStock={() => onClickStock(idx)}
               />
             ))}
           </CustomTabPanel>
@@ -131,10 +151,11 @@ const Price = () => {
           <CustomTabPanel value={value} index={1}>
             {stocks.map((stock, idx) => (
               <SinglePrice
+                key={idx}
                 name={stock.name}
                 price={stock.price}
                 percent={stock.percent}
-                onClickStock={onClickStock}
+                onClickStock={() => onClickStock(idx)}
               />
             ))}
           </CustomTabPanel>
@@ -142,10 +163,11 @@ const Price = () => {
           <CustomTabPanel value={value} index={2}>
             {stocks.slice(0, 1).map((stock, idx) => (
               <SinglePrice
+                key={idx}
                 name={stock.name}
                 price={stock.price}
                 percent={stock.percent}
-                onClickStock={onClickStock}
+                onClickStock={() => onClickStock(idx)}
               />
             ))}
           </CustomTabPanel>
