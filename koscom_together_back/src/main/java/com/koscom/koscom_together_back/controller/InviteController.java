@@ -2,6 +2,7 @@ package com.koscom.koscom_together_back.controller;
 import java.io.IOException;
 import com.koscom.koscom_together_back.configuration.SseEmitters;
 import com.koscom.koscom_together_back.dto.InviteDto;
+import com.koscom.koscom_together_back.dto.FollowDto;
 import com.koscom.koscom_together_back.service.domain.DepositAccountService;
 import com.koscom.koscom_together_back.service.InviteService;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,14 @@ public class InviteController {
     private final DepositAccountService depositAccountService;
 
     // create invite connection
-    @GetMapping(value = "/invite", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> getInviteConnection(@RequestParam("host")String hostId) {
         SseEmitter emitter = new SseEmitter();
         sseEmitters.add(emitter, hostId);
         try {
             // send dummy data.
             emitter.send(SseEmitter.event()
-                    .name("connect")
+                    .name("open")
                     .data("connected!"));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -37,9 +38,8 @@ public class InviteController {
 
     // make invite event
     @PostMapping("/invite")
-    public ResponseEntity<Void> invite(@RequestParam("host")String hostId, @RequestParam("account")String account,
-                                       @RequestParam("invitee")String inviteeId) {
-        sseEmitters.invite(hostId, account, inviteeId);
+    public ResponseEntity<Void> invite(@RequestBody FollowDto request) {
+        sseEmitters.invite(request);
         return ResponseEntity.ok().build();
     }
 

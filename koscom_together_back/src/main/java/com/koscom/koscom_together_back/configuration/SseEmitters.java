@@ -1,5 +1,6 @@
 package com.koscom.koscom_together_back.configuration;
 
+import com.koscom.koscom_together_back.dto.FollowDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -41,19 +42,20 @@ public class SseEmitters {
     }
 
     // send invite event to invitee
-    public void invite(String hostId, String account, String inviteeId) {
+    public void invite(FollowDto request) {
         log.info("send invite event");
+        log.info("dto : {}", request.toString());
         SseEmitter emitter;
         // find invitee's sse emitter
         for (Pair<SseEmitter, String> sseEmitterStringPair : emitters) {
-            if (Objects.equals(inviteeId, sseEmitterStringPair.second)) {
+            if (Objects.equals(request.getInviteeId(), sseEmitterStringPair.second)) {
                 emitter = sseEmitterStringPair.first;
                 // send the event.
                 try {
                     emitter.send(SseEmitter.event()
-                            .name("invite")
-                            .data(hostId)
-                            .data(account));
+                            .name("message")
+                            .data(request.getHostId())
+                            .data(request.getInviteeId()));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
