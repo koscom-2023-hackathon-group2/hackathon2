@@ -25,7 +25,7 @@ public class StockController {
     @GetMapping("/domesticStockList")
     public ResponseEntity<List<StockInfo>> getDomesticStockList() {
         List<StockInfo> stockInfoList = new LinkedList<>();
-        for(int i = 1; i <= 10; i++){
+        for(int i = 1; i <= 15; i++){
             stockInfoList.add(stockInfoRepository.findById((long)i).orElseThrow());
         }
         return ResponseEntity.ok(stockInfoList);
@@ -34,7 +34,7 @@ public class StockController {
     @GetMapping("/ETFList")
     public ResponseEntity<List<EtfInfo>> getEtfList(){
         List<EtfInfo> etfInfoList = new LinkedList<>();
-        for(int i = 1; i <= 5; i++){
+        for(int i = 1; i <= 15; i++){
             etfInfoList.add(etfInfoRepository.findById((long)i).orElseThrow());
         }
         return ResponseEntity.ok(etfInfoList);
