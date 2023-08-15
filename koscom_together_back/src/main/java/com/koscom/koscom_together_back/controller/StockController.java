@@ -24,19 +24,13 @@ public class StockController {
     // domestic stocks - 국내 주식
     @GetMapping("/domesticStockList")
     public ResponseEntity<List<StockInfo>> getDomesticStockList() {
-        List<StockInfo> stockInfoList = new LinkedList<>();
-        for(int i = 1; i <= 15; i++){
-            stockInfoList.add(stockInfoRepository.findById((long)i).orElseThrow());
-        }
+        List<StockInfo> stockInfoList = stockInfoRepository.findAll();
         return ResponseEntity.ok(stockInfoList);
     }
     // ETF
     @GetMapping("/ETFList")
     public ResponseEntity<List<EtfInfo>> getEtfList(){
-        List<EtfInfo> etfInfoList = new LinkedList<>();
-        for(int i = 1; i <= 15; i++){
-            etfInfoList.add(etfInfoRepository.findById((long)i).orElseThrow());
-        }
+        List<EtfInfo> etfInfoList = etfInfoRepository.findAll();
         return ResponseEntity.ok(etfInfoList);
     }
     // 보유 주식 - 해당 공동 계좌에서 보유한 주식 현황.

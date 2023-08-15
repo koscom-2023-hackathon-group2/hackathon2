@@ -38,6 +38,12 @@ public class Order extends BaseTimeEntity {
     @Column(name = "STOCK_NUMBER")
     private String stockNumber;
 
+    @Column(name = "ITEM_NAME")
+    private String itemName;
+
+    @Column(name = "STOCK_MARKET")
+    private String stockMarket;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_TYPE")
     private OrderType orderType;
@@ -52,11 +58,13 @@ public class Order extends BaseTimeEntity {
     private Long price;
 
     @Builder
-    public Order(Long seq, String memberId, String accountId, String stockNumber, OrderType orderType, StockType stockType, Integer stockCount, Long price) {
+    public Order(Long seq, String memberId, String accountId, String stockNumber, String itemName, String stockMarket, OrderType orderType, StockType stockType, Integer stockCount, Long price) {
         this.seq = seq;
         this.memberId = memberId;
         this.accountId = accountId;
         this.stockNumber = stockNumber;
+        this.itemName = itemName;
+        this.stockMarket = stockMarket;
         this.orderType = orderType;
         this.stockType = stockType;
         this.stockCount = stockCount;
@@ -72,6 +80,8 @@ public class Order extends BaseTimeEntity {
                 .stockType(request.getStockType())
                 .stockCount(request.getCount())
                 .price(request.getPrice())
+                .itemName(request.getItemName())
+                .stockMarket(request.getStockMarket())
                 .build();
     }
 }

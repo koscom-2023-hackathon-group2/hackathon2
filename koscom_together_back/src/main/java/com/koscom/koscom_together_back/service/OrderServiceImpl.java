@@ -3,16 +3,24 @@ package com.koscom.koscom_together_back.service;
 import com.koscom.koscom_together_back.domain.account.Account;
 import com.koscom.koscom_together_back.domain.order.Order;
 import com.koscom.koscom_together_back.domain.order.OrderType;
+import com.koscom.koscom_together_back.domain.stock.EtfInfo;
 import com.koscom.koscom_together_back.domain.stock.StockAsset;
+import com.koscom.koscom_together_back.domain.stock.StockInfo;
 import com.koscom.koscom_together_back.dto.OrderDto;
 import com.koscom.koscom_together_back.infrastructure.repository.AccountRepository;
+import com.koscom.koscom_together_back.infrastructure.repository.EtfInfoRepository;
 import com.koscom.koscom_together_back.infrastructure.repository.OrderRepository;
 import com.koscom.koscom_together_back.infrastructure.repository.StockAssetRepository;
+import com.koscom.koscom_together_back.infrastructure.repository.StockInfoRepository;
+import com.koscom.koscom_together_back.protocol.response.OrderHistoryResponse;
 import com.koscom.koscom_together_back.service.domain.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +31,8 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final AccountRepository accountRepository;
     private final StockAssetRepository stockAssetRepository;
+    private final EtfInfoRepository etfInfoRepository;
+    private final StockInfoRepository stockInfoRepository;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -49,5 +59,12 @@ public class OrderServiceImpl implements OrderService {
         accountRepository.save(account);
         stockAssetRepository.save(stockAsset);
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<OrderHistoryResponse> getOrderHistory(final String accountId) {
+        return orderRepository.findByAccountId(accountId).stream()
+                .map(x -> OrderHistoryResponse.EntityToProtocol(x))
+                .collect(Collectors.toList());
     }
 }
