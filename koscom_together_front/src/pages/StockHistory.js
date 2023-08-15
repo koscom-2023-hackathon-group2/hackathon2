@@ -85,7 +85,7 @@ const StockHistory = () => {
       })
       .then((res) => {
         console.log(res.data);
-        setStockHistoryData(res.data);
+        setStockHistoryData(res.data.reverse());
         return res.data;
       })
       .catch((err) => {
@@ -186,6 +186,7 @@ const StockHistory = () => {
                 date={stockHist.createdAt}
                 name={stockHist.itemName}
                 cnt={stockHist.stockCount}
+                orderType={stockHist.orderType}
                 onClickStockHistory={() => onClickStockHistory(index)}
               />
             ))}
@@ -200,6 +201,7 @@ const StockHistory = () => {
                   date={stockHist.createdAt}
                   name={stockHist.itemName}
                   cnt={stockHist.stockCount}
+                  orderType={stockHist.orderType}
                   onClickStockHistory={() => onClickStockHistory(index)}
                 />
               ))}

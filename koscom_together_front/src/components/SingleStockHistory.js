@@ -1,6 +1,12 @@
 import { SingleHistoryWrapper } from "../styles/HistoryEmotion";
 
-const SingleStockHistory = ({ date, name, cnt, onClickStockHistory }) => {
+const SingleStockHistory = ({
+  date,
+  name,
+  cnt,
+  orderType,
+  onClickStockHistory,
+}) => {
   return (
     <>
       <SingleHistoryWrapper onClick={onClickStockHistory}>
@@ -11,7 +17,10 @@ const SingleStockHistory = ({ date, name, cnt, onClickStockHistory }) => {
           <span>{name}</span>
         </div>
         <div className="bold">
-          {cnt > 0 ? `+${cnt.toLocaleString()}` : `${cnt.toLocaleString()}`}주
+          {orderType === "BUY"
+            ? `+${cnt.toLocaleString()}`
+            : `-${cnt.toLocaleString()}`}
+          주
         </div>
       </SingleHistoryWrapper>
     </>
