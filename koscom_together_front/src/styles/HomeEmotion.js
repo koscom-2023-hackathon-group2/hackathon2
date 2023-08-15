@@ -24,7 +24,7 @@ export const WelcomeBox = styled.div`
 
 export const AddNewBox = styled.div`
   width: 100%;
-  height: 140px;
+  height: 150px;
   border-radius: 20px;
   background-color: ${COLORS.sub400};
   margin-top: 0.5rem;
@@ -60,6 +60,12 @@ export const AccountsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-height: 300px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const InviteWrapper = styled.div`
@@ -79,7 +85,7 @@ export const AccountBox = styled.div`
   font-family: ${FONTS.NotoSansKR};
 
   width: 100%;
-  height: 140px;
+  height: 150px;
   border-radius: 20px;
   background-color: ${({ percent }) =>
     percent > 0
@@ -95,8 +101,15 @@ export const AccountBox = styled.div`
 
     color: ${COLORS.white};
     font-weight: 700;
+  }
 
-    margin-bottom: 2.5rem;
+  .account-box-middle {
+    display: flex;
+    align-items: center;
+  }
+
+  .white {
+    color: ${COLORS.white};
   }
 
   .account-box-bottom {
@@ -141,6 +154,7 @@ export const InvitationWrapper = styled.div`
     color: ${COLORS.white};
     border-radius: 10px;
     cursor: pointer;
+    background-color: ${COLORS.mainBlue};
 
     margin: 0 0.5rem;
 
@@ -150,12 +164,20 @@ export const InvitationWrapper = styled.div`
     }
   }
 
-  .accept-btn {
-    background-color: ${COLORS.mainBlue};
+  .acc-info-box {
+    padding: 2rem 0 1rem;
   }
 
-  .deny-btn {
-    background-color: ${COLORS.plus};
+  .acc-info-box input {
+    margin-top: 0.5rem;
+  }
+
+  .label {
+    padding-bottom: 0.5rem;
+  }
+
+  .second-label {
+    padding-top: 0.5rem;
   }
 `;
 

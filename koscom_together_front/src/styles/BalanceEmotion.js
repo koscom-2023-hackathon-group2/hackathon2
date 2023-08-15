@@ -43,4 +43,11 @@ export const AccountListContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  .no-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
 `;

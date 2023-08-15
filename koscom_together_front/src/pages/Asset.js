@@ -1,4 +1,5 @@
-import { useState } from "react";
+// 자산 화면
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
@@ -46,6 +47,9 @@ const Asset = () => {
   const [inviteModalShow, setInviteModalShow] = useState(false);
 
   const [priceModalData, setPriceModalData] = useState(dummyStockAssets[0]);
+
+  const nameRef = useRef();
+  const idRef = useRef();
 
   const data = {
     labels: ["현금", "주식"],
@@ -108,15 +112,23 @@ const Asset = () => {
   };
 
   const handleInvitation = () => {
+    const name = nameRef.current.value;
+    const id = nameRef.current.value;
+
     axios
       .post(`${API_URL}/invite`, {
-        host: "jiye1",
+        // 로그인 연결 후 hostId 수정 예정
+        hostId: "jiye1",
+        nickName: name,
         account: "52b80f53-db87-4cdf-a3ea-c6a01cf8370f",
-        invitee: "jiye2",
+        inviteeId: id,
       })
       .then((res) => {
         console.log(res);
         alert("구성원 초대가 완료되었습니다.");
+        nameRef.current.value = "";
+        idRef.current.value = "";
+        setInviteModalShow(false);
       })
       .catch((err) => {});
   };
@@ -128,11 +140,11 @@ const Asset = () => {
           <div className="invite-modal-title">구성원 초대하기</div>
           <div className="flexColumn invite-input-box">
             <div className="bold label">이름</div>
-            <SearchInput placeholder="이름을 입력해주세요" />
+            <SearchInput ref={nameRef} placeholder="이름을 입력해주세요" />
           </div>
           <div className="flexColumn invite-input-box">
             <div className="bold label">아이디</div>
-            <SearchInput placeholder="아이디를 입력해주세요" />
+            <SearchInput ref={idRef} placeholder="아이디를 입력해주세요" />
           </div>
           <div className="invite-btn" onClick={handleInvitation}>
             초대하기
