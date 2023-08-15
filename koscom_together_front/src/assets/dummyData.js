@@ -163,6 +163,6 @@ export const domesticStockLists = [
 ];
 
 export const dummyInvitation = [
-  { name: "코스모스", groupId: 1 },
-  { name: "지예원투쓰리포", groupId: 2 },
+  { name: "코스모스", account: "123456789101" },
+  { name: "지예원투쓰리포", account: "123456789101" },
 ];
