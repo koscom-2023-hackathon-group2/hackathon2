@@ -113,7 +113,7 @@ export const AccountBox = styled.div`
 
   .account-box-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 `;
 
@@ -121,6 +121,7 @@ export const AccountBtn = styled.div`
   padding: 10px 20px;
   background-color: ${COLORS.sub400};
   border-radius: 0.5rem;
+  margin-right: 0.5rem;
   cursor: pointer;
 `;
 
@@ -182,7 +183,7 @@ export const InvitationWrapper = styled.div`
 
 export const InviteBox = styled.div`
   display: flex;
-  background-color: ${COLORS.blue200};
+  background-color: ${COLORS.black};
   border-radius: 20px;
   padding: 15px 20px;
   margin-top: 0.5rem;

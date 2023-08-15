@@ -42,6 +42,8 @@ const Price = () => {
 
   const [groupList, setGroupList] = useState([]);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const searchInputRef = useRef();
   const cntRef = useRef();
 
@@ -124,7 +126,7 @@ const Price = () => {
     axios
       .post(`${API_URL}/order`, {
         // 로그인 연결 후 hostId 수정 예정
-        memberId: "jiye3",
+        memberId: user.id,
         accountId: selectedGroup.realAccountId,
         stockNumber: priceModalData.stockNumber,
         orderType: "SELL",
@@ -148,7 +150,7 @@ const Price = () => {
     axios
       .post(`${API_URL}/order`, {
         // 로그인 연결 후 hostId 수정 예정
-        memberId: "jiye3",
+        memberId: user.id,
         accountId: selectedGroup.realAccountId,
         stockNumber: priceModalData.stockNumber,
         orderType: "BUY",
@@ -180,16 +182,6 @@ const Price = () => {
       },
     },
   };
-
-  const names = [
-    "KEB하나은행",
-    "SC제일은행",
-    "국민은행",
-    "신한은행",
-    "우리은행",
-  ];
-
-  const bankCode = ["HN", "SC", "KB", "SH", "WR"];
 
   function getStyles(name, personName, theme) {
     return {
@@ -257,7 +249,7 @@ const Price = () => {
 
   const getGroupAccountList = async () => {
     await axios
-      .get(`${API_URL}/group-account/${"jiye2"}`, {
+      .get(`${API_URL}/group-account/${user.id}`, {
         headers: {},
       })
       .then((res) => {

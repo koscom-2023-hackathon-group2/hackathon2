@@ -126,7 +126,12 @@ const StockHistory = () => {
               <div className="bold">체결 날짜</div>
               <div className="date">
                 {activeModalStockData &&
-                  new Date(activeModalStockData.createdAt).toDateString()}
+                  `${new Date(
+                    activeModalStockData.createdAt
+                  ).getFullYear()}년 ${new Date(
+                    activeModalStockData.createdAt
+                  ).getMonth()}월
+                    ${new Date(activeModalStockData.createdAt).getDay()}일`}
               </div>
             </SingleHistoryInfo>
             <SingleHistoryInfo>

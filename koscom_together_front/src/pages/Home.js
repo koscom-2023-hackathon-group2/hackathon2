@@ -34,8 +34,8 @@ import { API_URL } from "../config";
 import { SearchInput } from "../styles/PriceEmotion";
 
 const Home = () => {
-  const percent = 12; // 추후 BE 수익률 구현 완료된 후 삭제 예정
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [invitationModalShow, setInvitationModalShow] = useState(false);
   const [invitationList, setInvitationList] = useState([]);
@@ -62,7 +62,7 @@ const Home = () => {
         {
           agree: "yes",
           account: activeInvitation.account,
-          invitee: "jiye2",
+          invitee: user.id,
           depositAccount: {
             nickName: "account",
             depositAccountCode: bankCode[names.indexOf(bank)],
@@ -92,7 +92,7 @@ const Home = () => {
         {
           agree: "no",
           account: activeInvitation.account,
-          invitee: "jiye1",
+          invitee: user.id,
           depositAccount: {
             nickName: "account",
             depositAccountCode: "",
@@ -158,7 +158,7 @@ const Home = () => {
 
   const getInvitationList = async () => {
     await axios
-      .get(`${API_URL}/invite?host=${"jiye2"}`, {
+      .get(`${API_URL}/invite?host=${user.id}`, {
         headers: {},
       })
       .then((res) => {
@@ -174,7 +174,7 @@ const Home = () => {
 
   const getGroupAccountList = async () => {
     await axios
-      .get(`${API_URL}/group-account/${"jiye3"}`, {
+      .get(`${API_URL}/group-account/${user.id}`, {
         headers: {},
       })
       .then((res) => {
@@ -326,7 +326,7 @@ const Home = () => {
             </div>
             <AccountsWrapper>
               {groupList.map((group, idx) => (
-                <AccountBox key={idx} percent={percent}>
+                <AccountBox key={idx}>
                   <div className="account-box-top">
                     <div>{group.nickname}</div>
                   </div>
@@ -359,7 +359,6 @@ const Home = () => {
                       }>
                       거래 내역
                     </AccountBtn>
-                    <AccountBtn>채우기</AccountBtn>
                   </div>
                 </AccountBox>
               ))}

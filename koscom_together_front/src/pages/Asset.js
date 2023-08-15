@@ -39,6 +39,7 @@ const Asset = () => {
   const navigate = useNavigate();
 
   const { state } = useLocation();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   // const cashAmount = 2200000; // 추후 삭제 예정
   // const stockAmount = 1022190; // 추후 삭제 예정
@@ -119,7 +120,7 @@ const Asset = () => {
     axios
       .post(`${API_URL}/invite`, {
         // 로그인 연결 후 hostId 수정 예정
-        hostId: "jiye1",
+        hostId: user.id,
         nickName: name,
         account: state.fakeAccount,
         inviteeId: id,
