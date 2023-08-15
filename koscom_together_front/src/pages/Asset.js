@@ -114,14 +114,14 @@ const Asset = () => {
   };
 
   const handleInvitation = () => {
-    const name = nameRef.current.value;
-    const id = nameRef.current.value;
+    // const name = nameRef.current.value;
+    const id = idRef.current.value;
 
     axios
       .post(`${API_URL}/invite`, {
         // 로그인 연결 후 hostId 수정 예정
         hostId: user.id,
-        nickName: name,
+        nickName: state.accountName,
         account: state.fakeAccount,
         inviteeId: id,
       })

@@ -13,7 +13,7 @@ export const BalanceWrapper = styled.div`
 export const TotalPriceContainer = styled.div`
   width: calc(100% + 3rem);
   padding: 3rem 0;
-  background-color: ${COLORS.mainBlue};
+  background-color: ${COLORS.black};
   color: ${COLORS.white};
 
   display: flex;

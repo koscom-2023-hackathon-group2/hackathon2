@@ -9,11 +9,19 @@ import { HeaderWrapper } from "../styles/CommonEmotion";
 const MainHeader = () => {
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
   return (
     <>
       <HeaderWrapper>
         <div className="logo" onClick={() => navigate("/")}>
           <span className="bold">koscom </span>Together
+        </div>
+        <div className="logout-btn" onClick={handleLogout}>
+          Logout
         </div>
       </HeaderWrapper>
     </>
