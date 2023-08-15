@@ -48,6 +48,7 @@ export const NewAccountDescBox = styled.div`
 
   .desc-content {
     padding-top: 1rem;
+    font-size: 14px;
   }
 `;
 
