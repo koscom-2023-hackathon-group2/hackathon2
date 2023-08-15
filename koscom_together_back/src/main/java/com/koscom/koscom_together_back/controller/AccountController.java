@@ -1,6 +1,5 @@
 package com.koscom.koscom_together_back.controller;
 
-import com.koscom.koscom_together_back.domain.account.Account;
 import com.koscom.koscom_together_back.dto.AccountDto;
 import com.koscom.koscom_together_back.protocol.response.AccountResponse;
 import com.koscom.koscom_together_back.protocol.response.HoldingAssetResponse;
