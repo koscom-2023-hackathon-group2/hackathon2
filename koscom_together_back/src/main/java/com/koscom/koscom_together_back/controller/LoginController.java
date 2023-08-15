@@ -8,11 +8,13 @@ import com.koscom.koscom_together_back.infrastructure.repository.EtfInfoReposito
 import com.koscom.koscom_together_back.infrastructure.repository.MemberRepository;
 import com.koscom.koscom_together_back.infrastructure.repository.StockInfoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,10 +23,10 @@ public class LoginController {
 
     private final MemberRepository memberRepository;
 
-    @PostMapping("/login")
-    public ResponseEntity<Void> addNewMember(@RequestBody MemberDto memberDto) {
-        // login 추가
-        memberRepository.save(Member.of(memberDto));
-        return ResponseEntity.ok().build();
+    @GetMapping("/login")
+    public ResponseEntity<Object> addNewMember(@RequestParam("id")String id, @RequestParam("pw")String pw) {
+        // find and return member object
+        Member member = memberRepository.findByIdAndPassword(id, pw);
+        return ResponseEntity.ok(MemberDto.builder().member(member).build());
     }
 }
