@@ -60,7 +60,7 @@ export const AccountsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 300px;
+  /* max-height: 300px; */
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

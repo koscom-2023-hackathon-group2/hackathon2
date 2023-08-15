@@ -10,6 +10,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 import {
   PriceWrapper,
   SearchBarContainer,
@@ -34,7 +40,10 @@ const Price = () => {
   const [totalETFData, setTotalETFData] = useState([]);
   const [ETFData, setETFData] = useState([]);
 
+  const [groupList, setGroupList] = useState([]);
+
   const searchInputRef = useRef();
+  const cntRef = useRef();
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -110,6 +119,110 @@ const Price = () => {
     }
   };
 
+  // 주식 매도 메소드
+  const handleSellStock = () => {
+    axios
+      .post(`${API_URL}/order`, {
+        // 로그인 연결 후 hostId 수정 예정
+        memberId: "jiye3",
+        accountId: selectedGroup.realAccountId,
+        stockNumber: priceModalData.stockNumber,
+        orderType: "SELL",
+        itemName: priceModalData.itemName,
+        stockMarket: priceModalData.stockMarket,
+        stockType: value === 0 ? "STOCK" : "ETF",
+        count: cntRef.current.value,
+        price: priceModalData.stockPrice,
+      })
+      .then((res) => {
+        console.log(res);
+        alert("주식 매도 주문이 완료되었습니다.");
+        cntRef.current.value = "";
+        setStockModalShow(false);
+      })
+      .catch((err) => {});
+  };
+
+  // 주식 매수 메소드
+  const handleBuyStock = () => {
+    axios
+      .post(`${API_URL}/order`, {
+        // 로그인 연결 후 hostId 수정 예정
+        memberId: "jiye3",
+        accountId: selectedGroup.realAccountId,
+        stockNumber: priceModalData.stockNumber,
+        orderType: "BUY",
+        itemName: priceModalData.itemName,
+        stockMarket: priceModalData.stockMarket,
+        stockType: value === 0 ? "STOCK" : "ETF",
+        count: cntRef.current.value,
+        price: priceModalData.stockPrice,
+      })
+      .then((res) => {
+        console.log(res);
+        alert("주식 매수 주문이 완료되었습니다.");
+        cntRef.current.value = "";
+        setStockModalShow(false);
+      })
+      .catch((err) => {});
+  };
+
+  const [selectedAccountName, setSelectedAccountName] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState(null);
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const names = [
+    "KEB하나은행",
+    "SC제일은행",
+    "국민은행",
+    "신한은행",
+    "우리은행",
+  ];
+
+  const bankCode = ["HN", "SC", "KB", "SH", "WR"];
+
+  function getStyles(name, personName, theme) {
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+
+  const theme = useTheme();
+  const [personName, setPersonName] = useState([]);
+
+  const handleAccountChange = (event) => {
+    console.log(event.target.value);
+    setSelectedAccountName(event.target.value);
+
+    for (let group of groupList) {
+      if (group.nickname === event.target.value) {
+        console.log(group);
+        setSelectedGroup(group);
+      }
+    }
+
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+
   const getStockList = async () => {
     await axios
       .get(`${API_URL}/domesticStockList`, {
@@ -142,6 +255,21 @@ const Price = () => {
       });
   };
 
+  const getGroupAccountList = async () => {
+    await axios
+      .get(`${API_URL}/group-account/${"jiye2"}`, {
+        headers: {},
+      })
+      .then((res) => {
+        console.log(res.data);
+        setGroupList(res.data);
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     async function getAndSetStockList() {
       const data = await getStockList();
@@ -154,8 +282,14 @@ const Price = () => {
       console.log(data);
     }
 
+    async function getAndSetGroupAccountList() {
+      const data = await getGroupAccountList();
+      console.log(data);
+    }
+
     getAndSetStockList();
     getAndSetETFList();
+    getAndSetGroupAccountList();
   }, []);
 
   return (
@@ -200,12 +334,50 @@ const Price = () => {
             </span>
           </div>
           <div className="flex number-input-box">
-            <SearchInput className="number-input" placeholder="10" />
+            <SearchInput
+              ref={cntRef}
+              className="number-input"
+              placeholder="10"
+            />
             <span>주</span>
           </div>
+          <div className="bold label">계좌 선택</div>
+          <FormControl sx={{ width: 239, paddingBottom: 1 }}>
+            <Select
+              // multiple
+              displayEmpty
+              value={personName}
+              onChange={handleAccountChange}
+              input={<OutlinedInput />}
+              renderValue={(selected) => {
+                if (selected.length === 0) {
+                  return <em>계좌 선택</em>;
+                }
+
+                return selected;
+              }}
+              MenuProps={MenuProps}
+              inputProps={{ "aria-label": "Without label" }}>
+              <MenuItem disabled value="">
+                <em>계좌 선택</em>
+              </MenuItem>
+              {groupList.map((group, idx) => (
+                <MenuItem
+                  key={idx}
+                  value={group.nickname}
+                  style={getStyles(group.nicknameme, personName, theme)}>
+                  {group.nickname}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <div className="btn-list">
-            <div className="btn sell">매도</div>
-            <div className="btn buy">매수</div>
+            <div className="btn sell" onClick={handleSellStock}>
+              매도
+            </div>
+            <div className="btn buy" onClick={handleBuyStock}>
+              매수
+            </div>
           </div>
         </StockModalWrapper>
       </Modal>

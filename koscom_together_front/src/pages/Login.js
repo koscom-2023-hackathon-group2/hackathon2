@@ -9,12 +9,31 @@ import {
 } from "../styles/LoginEmotion";
 
 import stockBubble from "../assets/stock_bubble.png";
+import { API_URL } from "../config";
+import { useRef } from "react";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const idInputRef = useRef();
+  const pwInputRef = useRef();
+
   const handleLogin = () => {
-    navigate("/");
+    axios
+      .get(
+        `${API_URL}/login?id=${idInputRef.current.value}&pw=${pwInputRef.current.value}`,
+        {
+          headers: {},
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("user", JSON.stringify(res.data));
+        alert("로그인 완료!");
+        navigate("/");
+      })
+      .catch((err) => {});
   };
 
   return (
@@ -26,9 +45,9 @@ const Login = () => {
         <img src={stockBubble} className="loginImg" alt="loginImg" />
         <LoginBox>
           <div>아이디</div>
-          <LoginInput />
+          <LoginInput ref={idInputRef} />
           <div>비밀번호</div>
-          <LoginInput type="password" />
+          <LoginInput ref={pwInputRef} type="password" />
         </LoginBox>
         <LoginBtn onClick={handleLogin}>Login</LoginBtn>
       </LoginWrapper>

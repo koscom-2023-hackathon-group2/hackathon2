@@ -25,7 +25,7 @@ const Balance = () => {
 
   const getGroupAccountList = async () => {
     await axios
-      .get(`${API_URL}/group-account/${"jiye1"}`, {
+      .get(`${API_URL}/group-account/${"jiye3"}`, {
         headers: {},
       })
       .then((res) => {
@@ -76,10 +76,27 @@ const Balance = () => {
                   <div>12%</div>
                 </div>
                 <div className="account-box-bottom">
-                  <AccountBtn onClick={() => navigate(`/asset/${idx}`)}>
+                  <AccountBtn
+                    onClick={() =>
+                      navigate(`/asset/${idx}`, {
+                        state: {
+                          accountNum: group.realAccountId,
+                          fakeAccount: group.fakeAccountId,
+                          accountName: group.nickname,
+                        },
+                      })
+                    }>
                     자산
                   </AccountBtn>
-                  <AccountBtn onClick={() => navigate(`/stockHistory/${idx}`)}>
+                  <AccountBtn
+                    onClick={() =>
+                      navigate(`/stockHistory/${idx}`, {
+                        state: {
+                          accountNum: group.realAccountId,
+                          accountName: group.nickname,
+                        },
+                      })
+                    }>
                     거래 내역
                   </AccountBtn>
                   <AccountBtn>채우기</AccountBtn>

@@ -31,12 +31,10 @@ import Modal from "../components/Modal";
 import stockBubble from "../assets/stock_bubble.png";
 import axios from "axios";
 import { API_URL } from "../config";
-import { dummyInvitation } from "../assets/dummyData";
 import { SearchInput } from "../styles/PriceEmotion";
 
 const Home = () => {
   const percent = 12; // 추후 BE 수익률 구현 완료된 후 삭제 예정
-  const money = 1938390; // 추후 BE 수익률 구현 완료된 후 삭제 예정
   const navigate = useNavigate();
 
   const [invitationModalShow, setInvitationModalShow] = useState(false);
@@ -176,7 +174,7 @@ const Home = () => {
 
   const getGroupAccountList = async () => {
     await axios
-      .get(`${API_URL}/group-account/${"jiye1"}`, {
+      .get(`${API_URL}/group-account/${"jiye3"}`, {
         headers: {},
       })
       .then((res) => {
@@ -275,46 +273,54 @@ const Home = () => {
             <div className="notoSansKR bold account-list-title">
               모임 초대 목록
             </div>
-            <InviteWrapper>
-              {invitationList.map((invite, idx) => (
-                <InviteBox key={invite.account}>
-                  <div>{invite.nickName}</div>
-                  <div className="btn-list">
-                    <div
-                      className="btn accept-btn"
-                      onClick={() => acceptInvitation(idx)}>
-                      <CheckIcon />
-                    </div>
-                    <div className="btn deny-btn">
-                      <CloseIcon />
-                    </div>
-                  </div>
-                </InviteBox>
-              ))}
-            </InviteWrapper>
+            {invitationList.length > 0
+              ? invitationList.map((invite, idx) => (
+                  <>
+                    <InviteWrapper>
+                      <InviteBox key={invite.account}>
+                        <div>{invite.nickName}</div>
+                        <div className="btn-list">
+                          <div
+                            className="btn accept-btn"
+                            onClick={() => acceptInvitation(idx)}>
+                            <CheckIcon />
+                          </div>
+                          <div className="btn deny-btn">
+                            <CloseIcon />
+                          </div>
+                        </div>
+                      </InviteBox>
+                    </InviteWrapper>
+                  </>
+                ))
+              : null}
           </>
         ) : (
           <>
             <div className="notoSansKR bold account-list-title">
               모임 초대 목록
             </div>
-            <InviteWrapper>
-              {invitationList.map((invite, idx) => (
-                <InviteBox key={invite.account}>
-                  <div>{invite.nickName}</div>
-                  <div className="btn-list">
-                    <div
-                      className="btn accept-btn"
-                      onClick={() => acceptInvitation(idx)}>
-                      <CheckIcon />
-                    </div>
-                    <div className="btn deny-btn">
-                      <CloseIcon />
-                    </div>
-                  </div>
-                </InviteBox>
-              ))}
-            </InviteWrapper>
+            {invitationList.length > 0
+              ? invitationList.map((invite, idx) => (
+                  <>
+                    <InviteWrapper>
+                      <InviteBox key={invite.account}>
+                        <div>{invite.nickName}</div>
+                        <div className="btn-list">
+                          <div
+                            className="btn accept-btn"
+                            onClick={() => acceptInvitation(idx)}>
+                            <CheckIcon />
+                          </div>
+                          <div className="btn deny-btn">
+                            <CloseIcon />
+                          </div>
+                        </div>
+                      </InviteBox>
+                    </InviteWrapper>
+                  </>
+                ))
+              : null}
             <div className="notoSansKR bold account-list-title">
               모임 계좌 목록
             </div>
@@ -349,11 +355,27 @@ const Home = () => {
                     )}
                   </div>
                   <div className="account-box-bottom">
-                    <AccountBtn onClick={() => navigate(`/asset/${idx}`)}>
+                    <AccountBtn
+                      onClick={() =>
+                        navigate(`/asset/${idx}`, {
+                          state: {
+                            accountNum: group.realAccountId,
+                            fakeAccount: group.fakeAccountId,
+                            accountName: group.nickname,
+                          },
+                        })
+                      }>
                       자산
                     </AccountBtn>
                     <AccountBtn
-                      onClick={() => navigate(`/stockHistory/${idx}`)}>
+                      onClick={() =>
+                        navigate(`/stockHistory/${idx}`, {
+                          state: {
+                            accountNum: group.realAccountId,
+                            accountName: group.nickname,
+                          },
+                        })
+                      }>
                       거래 내역
                     </AccountBtn>
                     <AccountBtn>채우기</AccountBtn>
