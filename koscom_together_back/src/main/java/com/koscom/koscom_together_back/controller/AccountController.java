@@ -3,6 +3,7 @@ package com.koscom.koscom_together_back.controller;
 import com.koscom.koscom_together_back.domain.account.Account;
 import com.koscom.koscom_together_back.dto.AccountDto;
 import com.koscom.koscom_together_back.protocol.response.AccountResponse;
+import com.koscom.koscom_together_back.protocol.response.HoldingAssetResponse;
 import com.koscom.koscom_together_back.service.GroupAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,11 @@ public class AccountController {
     @GetMapping("/{memberId}")
     public List<AccountResponse> getMemberAccounts(@PathVariable String memberId) {
         return groupAccountService.getGroupAccounts(memberId);
+    }
+
+    @GetMapping("/{accountId}/holding")
+    public HoldingAssetResponse getHoldingAsset(@PathVariable final String accountId) {
+        return groupAccountService.getHoldingAsset(accountId);
     }
 
 }

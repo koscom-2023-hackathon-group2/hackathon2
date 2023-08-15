@@ -6,6 +6,8 @@ import com.koscom.koscom_together_back.domain.accountInfo.AccountInfo;
 import com.koscom.koscom_together_back.domain.member.Member;
 import com.koscom.koscom_together_back.dto.AccountDto;
 import com.koscom.koscom_together_back.protocol.response.AccountResponse;
+import com.koscom.koscom_together_back.protocol.response.HoldingAssetResponse;
+import com.koscom.koscom_together_back.protocol.response.StockAssetResponse;
 import com.koscom.koscom_together_back.service.domain.AccountInfoService;
 import com.koscom.koscom_together_back.service.domain.AccountService;
 import com.koscom.koscom_together_back.service.domain.DepositAccountService;
@@ -46,5 +48,15 @@ public class GroupAccountServiceImpl implements GroupAccountService {
         return accountInfoService.getAccountInfos(member).stream()
                 .map(x -> AccountResponse.of(x.getAccount()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public HoldingAssetResponse getHoldingAsset(String accountId) {
+        final Account account = accountService.findAccountAndStockAssets(accountId);
+        final List<StockAssetResponse> stockAssetResponses = account.getStockAssets().stream()
+                .map(x -> StockAssetResponse.entityToResponse(x))
+                .collect(Collectors.toList());
+
+        return HoldingAssetResponse.of(account, stockAssetResponses);
     }
 }

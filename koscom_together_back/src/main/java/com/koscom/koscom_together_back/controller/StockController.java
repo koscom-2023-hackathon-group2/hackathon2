@@ -33,5 +33,4 @@ public class StockController {
         List<EtfInfo> etfInfoList = etfInfoRepository.findAll();
         return ResponseEntity.ok(etfInfoList);
     }
-    // 보유 주식 - 해당 공동 계좌에서 보유한 주식 현황.
 }
