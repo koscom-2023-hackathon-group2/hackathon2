@@ -87,12 +87,7 @@ export const AccountBox = styled.div`
   width: 100%;
   height: 150px;
   border-radius: 20px;
-  background-color: ${({ percent }) =>
-    percent > 0
-      ? COLORS.plus
-      : percent === 0
-      ? COLORS.gray100
-      : COLORS.mainBlue};
+  background-color: ${COLORS.mainBlue};
   margin-top: 0.5rem;
 
   .account-box-top {
@@ -110,6 +105,10 @@ export const AccountBox = styled.div`
 
   .white {
     color: ${COLORS.white};
+  }
+
+  .right {
+    justify-content: end;
   }
 
   .account-box-bottom {

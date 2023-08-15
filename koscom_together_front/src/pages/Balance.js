@@ -47,21 +47,15 @@ const Balance = () => {
     getAndSetGroupAccountList();
   }, []);
 
+  // const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
       <BalanceWrapper>
         <TotalPriceContainer>
+          <div>{JSON.parse(localStorage.getItem("user")).id} 님의 총 잔고</div>
           <div>
             <span className="total-price">{totalPrice.toLocaleString()}원</span>
-          </div>
-          <div>
-            <span className="flex">
-              <ArrowDropUpIcon />
-              <span>{diffPrice.toLocaleString()}원</span>
-              <span className="percent">
-                {diffPercent >= 0 ? `(+${diffPercent}%)` : `(${diffPercent}%)`}
-              </span>
-            </span>
           </div>
         </TotalPriceContainer>
         <AccountListContainer>
@@ -72,8 +66,11 @@ const Balance = () => {
               <AccountBox key={idx} percent={group.stockAsset}>
                 <div className="account-box-top">
                   <div>{group.nickname}</div>
-                  {/* 수익률 BE 아직 미완성 */}
-                  <div>12%</div>
+                </div>
+                <div className="accont-box-middle">
+                  <div className="flex white right">
+                    {(group.cashAsset + group.stockAsset).toLocaleString()}원
+                  </div>
                 </div>
                 <div className="account-box-bottom">
                   <AccountBtn

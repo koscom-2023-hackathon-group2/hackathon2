@@ -329,30 +329,11 @@ const Home = () => {
                 <AccountBox key={idx} percent={percent}>
                   <div className="account-box-top">
                     <div>{group.nickname}</div>
-                    {/* 수익률 BE 아직 미완성 */}
-                    <div>{percent}%</div>
                   </div>
                   <div className="accont-box-middle">
-                    {percent < 0 ? (
-                      <div className="flex white">
-                        <ArrowDropDownIcon />
-                        {(group.cashAsset + group.stockAsset).toLocaleString()}
-                        원
-                      </div>
-                    ) : percent === 0 ? (
-                      <div className="flex white">
-                        {(group.cashAsset + group.stockAsset).toLocaleString()}
-                        원
-                      </div>
-                    ) : (
-                      <div className="flex white">
-                        <ArrowDropUpIcon className="plus" />
-                        {(
-                          group.cashAsset + group.stockAsset
-                        ).toLocaleString()}{" "}
-                        원
-                      </div>
-                    )}
+                    <div className="flex white right">
+                      {(group.cashAsset + group.stockAsset).toLocaleString()}원
+                    </div>
                   </div>
                   <div className="account-box-bottom">
                     <AccountBtn

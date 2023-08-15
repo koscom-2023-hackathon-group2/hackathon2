@@ -401,7 +401,6 @@ const Price = () => {
               aria-label="basic tabs example">
               <Tab label="국내 주식" {...a11yProps(0)} />
               <Tab label="ETF" {...a11yProps(1)} />
-              <Tab label="보유 주식" {...a11yProps(2)} />
             </Tabs>
           </Box>
           {/* 국내 주식 Tab */}
@@ -431,18 +430,6 @@ const Price = () => {
                 />
               ))}
             </StockBox>
-          </CustomTabPanel>
-          {/* 보유 주식 Tab */}
-          <CustomTabPanel value={value} index={2}>
-            {stockData.slice(0, 2).map((stock, idx) => (
-              <SinglePrice
-                key={idx}
-                name={stock.itemName}
-                price={stock.stockPrice}
-                percent={stock.rateOfReturn}
-                onClickStock={() => onClickStock(idx)}
-              />
-            ))}
           </CustomTabPanel>
         </Box>
       </PriceWrapper>

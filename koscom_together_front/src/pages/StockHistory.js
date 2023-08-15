@@ -124,7 +124,10 @@ const StockHistory = () => {
           <div className="flexColumn info-box">
             <SingleHistoryInfo>
               <div className="bold">체결 날짜</div>
-              <div className="date">2023.07.29. 오전 09:18</div>
+              <div className="date">
+                {activeModalStockData &&
+                  new Date(activeModalStockData.createdAt).toDateString()}
+              </div>
             </SingleHistoryInfo>
             <SingleHistoryInfo>
               <div className="bold">1주 가격</div>
@@ -175,7 +178,7 @@ const StockHistory = () => {
             {stockHistoryData.map((stockHist, index) => (
               <SingleStockHistory
                 key={index}
-                date={stockHist.date}
+                date={stockHist.createdAt}
                 name={stockHist.itemName}
                 cnt={stockHist.stockCount}
                 onClickStockHistory={() => onClickStockHistory(index)}
@@ -189,7 +192,7 @@ const StockHistory = () => {
               .map((stockHist, index) => (
                 <SingleStockHistory
                   key={index}
-                  date={stockHist.date}
+                  date={stockHist.createdAt}
                   name={stockHist.itemName}
                   cnt={stockHist.stockCount}
                   onClickStockHistory={() => onClickStockHistory(index)}
@@ -203,7 +206,7 @@ const StockHistory = () => {
               .map((stockHist, index) => (
                 <SingleStockHistory
                   key={index}
-                  date={stockHist.date}
+                  date={stockHist.createdAt}
                   name={stockHist.itemName}
                   cnt={stockHist.stockCount}
                   onClickStockHistory={() => onClickStockHistory(index)}
