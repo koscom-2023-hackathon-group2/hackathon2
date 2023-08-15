@@ -85,6 +85,10 @@ export const SinglePriceWrapper = styled.div`
     display: flex;
     justify-content: right;
   }
+
+  .name {
+    padding-right: 1rem;
+  }
 `;
 
 export const StockModalWrapper = styled.div`

@@ -62,6 +62,12 @@ export const AccountsWrapper = styled.div`
   width: 100%;
 `;
 
+export const InviteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 export const AccountBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -142,6 +148,56 @@ export const InvitationWrapper = styled.div`
     &:hover {
       box-shadow: 0 5px 10px rgba(33, 33, 33, 0.3);
     }
+  }
+
+  .accept-btn {
+    background-color: ${COLORS.mainBlue};
+  }
+
+  .deny-btn {
+    background-color: ${COLORS.plus};
+  }
+`;
+
+export const InviteBox = styled.div`
+  display: flex;
+  background-color: ${COLORS.blue200};
+  border-radius: 20px;
+  padding: 15px 20px;
+  margin-top: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  font-family: ${FONTS.NotoSansKR};
+  font-weight: 700;
+  color: ${COLORS.white};
+
+  &:last-child {
+    margin-bottom: 1rem;
+  }
+
+  .btn-list {
+    display: flex;
+    color: ${COLORS.white};
+  }
+
+  .btn {
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.5rem;
+    cursor: pointer;
+
+    transition: box-shadow 0.3s;
+    &:hover {
+      box-shadow: 0 5px 10px rgba(33, 33, 33, 0.3);
+    }
+  }
+
+  .btn svg {
+    width: 25px;
+    height: 25px;
   }
 
   .accept-btn {
