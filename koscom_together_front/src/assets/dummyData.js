@@ -161,3 +161,8 @@ export const domesticStockLists = [
     rateOfReturn: -0.74,
   },
 ];
+
+export const dummyInvitation = [
+  { name: "코스모스", groupId: 1 },
+  { name: "지예원투쓰리포", groupId: 2 },
+];

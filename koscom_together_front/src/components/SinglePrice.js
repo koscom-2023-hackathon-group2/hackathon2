@@ -7,7 +7,7 @@ const SinglePrice = ({ name, price, percent, onClickStock }) => {
   return (
     <>
       <SinglePriceWrapper onClick={onClickStock}>
-        <div className="ellipsis">{name}</div>
+        <div className="ellipsis name">{name}</div>
         <div className="stock-info-right">
           <div>{price.toLocaleString()}</div>
           <div className="stock-percent">

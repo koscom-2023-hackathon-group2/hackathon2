@@ -8,8 +8,13 @@ import {
   AddNewBox,
   HomeWrapper,
   InvitationWrapper,
+  InviteBox,
+  InviteWrapper,
   WelcomeBox,
 } from "../styles/HomeEmotion";
+
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 import InvitationImg from "../assets/invitation.png";
 
@@ -18,12 +23,17 @@ import Modal from "../components/Modal";
 import stockBubble from "../assets/stock_bubble.png";
 import axios from "axios";
 import { API_URL } from "../config";
+import { dummyInvitation } from "../assets/dummyData";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const [invitationModalShow, setInvitationModalShow] = useState(false);
   const [groupList, setGroupList] = useState([]);
+
+  const acceptInvitation = (idx) => {
+    setInvitationModalShow(true);
+  };
 
   const getGroupAccountList = async () => {
     await axios
@@ -56,7 +66,7 @@ const Home = () => {
         setModalShow={setInvitationModalShow}>
         <InvitationWrapper>
           <img src={InvitationImg} className="invite-img" alt="invitation" />
-          <div className="group-name">코스콤 47기 동기들</div>
+          <div className="group-name">지예원투쓰리포</div>
           <div>초대가 도착했습니다.</div>
           <div className="flex btn-list">
             <div className="accept-btn btn">수락</div>
@@ -77,9 +87,49 @@ const Home = () => {
                 <br /> 친구들과 함께 주식에 투자해보세요 !!
               </div>
             </WelcomeBox>
+            <div className="notoSansKR bold account-list-title">
+              모임 초대 목록
+            </div>
+            <InviteWrapper>
+              {dummyInvitation.map((invite, idx) => (
+                <InviteBox key={idx}>
+                  <div>{invite.name}</div>
+                  <div className="btn-list">
+                    <div
+                      className="btn accept-btn"
+                      onClick={() => acceptInvitation(idx)}>
+                      <CheckIcon />
+                    </div>
+                    <div className="btn deny-btn">
+                      <CloseIcon />
+                    </div>
+                  </div>
+                </InviteBox>
+              ))}
+            </InviteWrapper>
           </>
         ) : (
           <>
+            <div className="notoSansKR bold account-list-title">
+              모임 초대 목록
+            </div>
+            <InviteWrapper>
+              {dummyInvitation.map((invite, idx) => (
+                <InviteBox key={idx}>
+                  <div>{invite.name}</div>
+                  <div className="btn-list">
+                    <div
+                      className="btn accept-btn"
+                      onClick={() => acceptInvitation(idx)}>
+                      <CheckIcon />
+                    </div>
+                    <div className="btn deny-btn">
+                      <CloseIcon />
+                    </div>
+                  </div>
+                </InviteBox>
+              ))}
+            </InviteWrapper>
             <div className="notoSansKR bold account-list-title">
               모임 계좌 목록
             </div>
@@ -106,6 +156,7 @@ const Home = () => {
             </AccountsWrapper>
           </>
         )}
+
         <AddNewBox onClick={() => navigate("/new")}>
           <div className="circle">+</div>
           <div>Add New</div>
