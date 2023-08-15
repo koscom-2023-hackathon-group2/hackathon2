@@ -66,7 +66,7 @@ const Balance = () => {
         </TotalPriceContainer>
         <AccountListContainer>
           {groupList.length === 0 ? (
-            <div>공동 계좌 목록이 없습니다.</div>
+            <div className="no-account">공동 계좌 목록이 없습니다.</div>
           ) : (
             groupList.map((group, idx) => (
               <AccountBox key={idx} percent={group.stockAsset}>
