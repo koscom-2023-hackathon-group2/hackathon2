@@ -216,7 +216,7 @@ const Asset = () => {
                 onChange={handleChange}
                 aria-label="basic tabs example">
                 <Tab label="보유 주식" {...a11yProps(0)} />
-                <Tab label="구성원" {...a11yProps(1)} />
+                {/* <Tab label="구성원" {...a11yProps(1)} /> */}
               </Tabs>
             </Box>
             {/* 보유 주식 Tab */}
@@ -230,11 +230,11 @@ const Asset = () => {
               ))}
             </CustomTabPanel>
             {/* 구성원 Tab */}
-            <CustomTabPanel value={value} index={1}>
+            {/* <CustomTabPanel value={value} index={1}>
               {members.map((member, idx) => (
                 <SingleMember name={member.name} accNum={member.accNum} />
               ))}
-            </CustomTabPanel>
+            </CustomTabPanel> */}
           </Box>
         </StockAssetContainer>
       </AssetWrapper>
