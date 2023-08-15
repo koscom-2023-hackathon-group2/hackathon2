@@ -54,6 +54,11 @@ const Home = () => {
     // setActiveInvitation
   };
 
+  const denyInvitation = (idx) => {
+    setActiveInvitation(invitationList[idx]);
+    handleDeny();
+  };
+
   const handleAccept = () => {
     // 초대 수락하는 로직 구현하기
     axios
@@ -74,12 +79,13 @@ const Home = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         console.log("초대 수락 완료.");
-        setInvitationList(...getInvitationList());
-        setGroupList(...getGroupAccountList());
-        accountRef.current.value = "";
+        alert("초대가 수락되었습니다.");
+        const data = getGroupAccountList();
+        const inviteData = getInvitationList();
         setInvitationModalShow(false);
+        setGroupList([...data]);
+        setInvitationList([...inviteData]);
       })
       .catch((err) => {});
   };
@@ -106,8 +112,8 @@ const Home = () => {
       .then((res) => {
         console.log(res);
         console.log("초대 거절 완료.");
-        setInvitationList(...getInvitationList());
-        setGroupList(...getGroupAccountList());
+        const inviteData = getInvitationList();
+        setInvitationList([...inviteData]);
       })
       .catch((err) => {});
   };
@@ -285,7 +291,9 @@ const Home = () => {
                           onClick={() => acceptInvitation(idx)}>
                           <CheckIcon />
                         </div>
-                        <div className="btn deny-btn" onClick={handleDeny}>
+                        <div
+                          className="btn deny-btn"
+                          onClick={() => denyInvitation(idx)}>
                           <CloseIcon />
                         </div>
                       </div>
