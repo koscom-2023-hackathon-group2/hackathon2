@@ -2,6 +2,7 @@ package com.koscom.koscom_together_back.domain.account;
 
 import com.koscom.koscom_together_back.domain.base.BaseTimeEntity;
 import com.koscom.koscom_together_back.domain.accountInfo.AccountInfo;
+import com.koscom.koscom_together_back.domain.stock.StockAsset;
 import com.koscom.koscom_together_back.dto.AccountDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,20 +50,19 @@ public class Account extends BaseTimeEntity {
     @Column(name = "CASH_ASSET")
     private Long cashAsset;
 
-    @Column(name = "STOCK_ASSET")
-    private Long stockAsset;
+    @OneToMany(mappedBy = "account")
+    private List<StockAsset> stockAssets = new ArrayList<>();
 
     @OneToMany(mappedBy = "account")
     private List<AccountInfo> accountInfos = new ArrayList<>();
 
     @Builder
-    public Account(String realAccountId, String fakeAccountId, String nickname, List<AccountInfo> accountInfos, Long cashAsset, Long stockAsset) {
+    public Account(String realAccountId, String fakeAccountId, String nickname, List<AccountInfo> accountInfos, Long cashAsset) {
         this.realAccountId = realAccountId;
         this.fakeAccountId = fakeAccountId;
         this.nickname = nickname;
         this.accountInfos = accountInfos;
         this.cashAsset = cashAsset;
-        this.stockAsset = stockAsset;
     }
 
     public static Account of(AccountDto request) {
@@ -71,7 +71,14 @@ public class Account extends BaseTimeEntity {
                 .fakeAccountId(UUID.randomUUID().toString())
                 .nickname(request.getNickName())
                 .cashAsset(185000000L)
-                .stockAsset(0L)
                 .build();
+    }
+
+    public void decreaseCash(int count, long price) {
+        this.cashAsset -= count * price;
+    }
+
+    public void increaseCash(int count, long price) {
+        this.cashAsset += count * price;
     }
 }

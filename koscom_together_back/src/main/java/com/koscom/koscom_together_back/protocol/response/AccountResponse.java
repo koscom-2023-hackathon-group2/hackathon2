@@ -1,7 +1,6 @@
 package com.koscom.koscom_together_back.protocol.response;
 
 import com.koscom.koscom_together_back.domain.account.Account;
-import com.koscom.koscom_together_back.domain.accountInfo.AccountInfo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -31,7 +30,6 @@ public class AccountResponse {
                 .fakeAccountId(account.getFakeAccountId())
                 .nickname(account.getNickname())
                 .cashAsset(account.getCashAsset())
-                .stockAsset(account.getStockAsset())
                 .build();
     }
 }
