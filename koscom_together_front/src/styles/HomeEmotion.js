@@ -60,7 +60,7 @@ export const AccountsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 300px;
+  /* max-height: 300px; */
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -87,12 +87,7 @@ export const AccountBox = styled.div`
   width: 100%;
   height: 150px;
   border-radius: 20px;
-  background-color: ${({ percent }) =>
-    percent > 0
-      ? COLORS.plus
-      : percent === 0
-      ? COLORS.gray100
-      : COLORS.mainBlue};
+  background-color: ${COLORS.mainBlue};
   margin-top: 0.5rem;
 
   .account-box-top {
@@ -112,9 +107,13 @@ export const AccountBox = styled.div`
     color: ${COLORS.white};
   }
 
+  .right {
+    justify-content: end;
+  }
+
   .account-box-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 `;
 
@@ -122,6 +121,7 @@ export const AccountBtn = styled.div`
   padding: 10px 20px;
   background-color: ${COLORS.sub400};
   border-radius: 0.5rem;
+  margin-right: 0.5rem;
   cursor: pointer;
 `;
 
@@ -183,7 +183,7 @@ export const InvitationWrapper = styled.div`
 
 export const InviteBox = styled.div`
   display: flex;
-  background-color: ${COLORS.blue200};
+  background-color: ${COLORS.black};
   border-radius: 20px;
   padding: 15px 20px;
   margin-top: 0.5rem;

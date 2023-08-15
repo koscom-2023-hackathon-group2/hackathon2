@@ -70,7 +70,7 @@ const History = () => {
           <CustomTabPanel value={value} index={0}>
             {histories.map((history, idx) => (
               <SingleHistory
-                date={history.date}
+                date={history.createdAt}
                 group={history.group}
                 price={history.price}
               />
@@ -82,7 +82,7 @@ const History = () => {
               .filter((history) => history.price > 0)
               .map((history, idx) => (
                 <SingleHistory
-                  date={history.date}
+                  date={history.createdAt}
                   group={history.group}
                   price={history.price}
                 />
@@ -94,7 +94,7 @@ const History = () => {
               .filter((history) => history.price < 0)
               .map((history, idx) => (
                 <SingleHistory
-                  date={history.date}
+                  date={history.createdAt}
                   group={history.group}
                   price={history.price}
                 />

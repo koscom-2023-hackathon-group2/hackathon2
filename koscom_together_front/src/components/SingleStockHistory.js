@@ -5,7 +5,9 @@ const SingleStockHistory = ({ date, name, cnt, onClickStockHistory }) => {
     <>
       <SingleHistoryWrapper onClick={onClickStockHistory}>
         <div className="flex">
-          <span className="date">{date}</span>
+          <span className="date">
+            {new Date(date).getMonth()}월 {new Date(date).getDate()}일
+          </span>
           <span>{name}</span>
         </div>
         <div className="bold">

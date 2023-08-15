@@ -50,4 +50,9 @@ export const AccountListContainer = styled.div`
     align-items: center;
     height: 200px;
   }
+
+  .account-box-bottom {
+    display: flex;
+    justify-content: flex-start;
+  }
 `;

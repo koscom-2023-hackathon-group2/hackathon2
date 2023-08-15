@@ -100,6 +100,10 @@ export const StockModalWrapper = styled.div`
     font-weight: 700;
   }
 
+  .label {
+    padding-bottom: 0.5rem;
+  }
+
   .stock-info {
     font-size: 14px;
     color: ${COLORS.gray100};
@@ -142,6 +146,7 @@ export const StockModalWrapper = styled.div`
 
   .btn-list {
     display: flex;
+    padding-top: 1rem;
   }
 
   .btn {

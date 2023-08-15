@@ -46,11 +46,11 @@ const Footer = () => {
           onClick={navigatePrice}>
           현재가
         </FooterBtn>
-        <FooterBtn
+        {/* <FooterBtn
           className={activeNav === 4 ? "active" : ""}
           onClick={navigateHistory}>
           입출금
-        </FooterBtn>
+        </FooterBtn> */}
       </FooterWrapper>
     </>
   );

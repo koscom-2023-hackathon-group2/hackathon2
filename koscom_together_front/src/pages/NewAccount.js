@@ -38,6 +38,8 @@ const NewAccount = () => {
   const groupNameRef = useRef();
   const accNumRef = useRef();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleNext = () => {
     if (activeStep === 0 && checked) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -58,7 +60,7 @@ const NewAccount = () => {
           },
           {
             headers: {
-              "X-MEMBER": "jiye1",
+              "X-MEMBER": user.id,
             },
           }
         )
