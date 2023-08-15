@@ -7,4 +7,5 @@ public class HostDto {
     private String hostId;
     private String account;
     private String inviteeId;
+    private String nickName;
 }
