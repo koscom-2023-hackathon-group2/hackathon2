@@ -45,6 +45,10 @@ export const NewAccountDescBox = styled.div`
     justify-content: center;
     width: 100%;
   }
+
+  .desc-content {
+    padding-top: 1rem;
+  }
 `;
 
 export const NewAccountContentWrapper = styled.div`

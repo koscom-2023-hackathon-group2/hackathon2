@@ -121,7 +121,24 @@ const NewAccount = () => {
     return (
       <NewAccountDescBox>
         <div className="desc-title">모임 계좌 약관 동의</div>
-        <div>약관 동의 내용 (필수)</div>
+        <div>
+          약관 동의 내용 <span className="bold">(필수)</span>
+        </div>
+        <div className="desc-content">
+          이 약관은 공동증권매매 업무를 영위하는{" "}
+          <span className="bold">koscom Together</span>(이 하 “회사”라 한다)와
+          증권 매매를 하고자 하는 거래 상대방(이하 "고객"이라 한다)간에 증권
+          매매거래를 하는 경우에 적용된다.
+        </div>
+        <br />
+        <div>
+          1. 회사에서 운용하는 자산은 공동자산이기 때문에 어느 정도의 위험성이
+          존재한다.
+          <br />
+          <br />
+          2. 회사의 공동 계좌의 소유주는 계좌를 개설한 주체이되 그 공동 자산을
+          활용한 증권 투자는 계좌 구성원 모두가 가능하다.
+        </div>
         <div className="flex checkBox">
           <Checkbox checked={checked} onChange={handleCheckBoxChange} />
           <div>약관에 동의합니다.</div>
