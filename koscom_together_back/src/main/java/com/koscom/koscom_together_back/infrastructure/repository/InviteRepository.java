@@ -1,13 +1,14 @@
 package com.koscom.koscom_together_back.infrastructure.repository;
 
-import com.koscom.koscom_together_back.domain.member.Member;
+import com.koscom.koscom_together_back.domain.invite.Invite;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface InviteRepository extends JpaRepository<Invite, Long> {
 
-    Optional<Member> findById(String memberId);
+    List<Invite> findByInviteeId(String inviteeId);
+    Invite findByInviteeIdAndAccount(String inviteeId, String account);
 }
