@@ -270,57 +270,57 @@ const Home = () => {
                 <br /> 친구들과 함께 주식에 투자해보세요 !!
               </div>
             </WelcomeBox>
-            <div className="notoSansKR bold account-list-title">
-              모임 초대 목록
-            </div>
-            {invitationList.length > 0
-              ? invitationList.map((invite, idx) => (
-                  <>
-                    <InviteWrapper>
-                      <InviteBox key={invite.account}>
-                        <div>{invite.nickName}</div>
-                        <div className="btn-list">
-                          <div
-                            className="btn accept-btn"
-                            onClick={() => acceptInvitation(idx)}>
-                            <CheckIcon />
-                          </div>
-                          <div className="btn deny-btn">
-                            <CloseIcon />
-                          </div>
+            {invitationList.length > 0 ? (
+              <>
+                <div className="notoSansKR bold account-list-title">
+                  모임 초대 목록
+                </div>
+                {invitationList.map((invite, idx) => (
+                  <InviteWrapper>
+                    <InviteBox key={invite.account}>
+                      <div>{invite.nickName}</div>
+                      <div className="btn-list">
+                        <div
+                          className="btn accept-btn"
+                          onClick={() => acceptInvitation(idx)}>
+                          <CheckIcon />
                         </div>
-                      </InviteBox>
-                    </InviteWrapper>
-                  </>
-                ))
-              : null}
+                        <div className="btn deny-btn" onClick={handleDeny}>
+                          <CloseIcon />
+                        </div>
+                      </div>
+                    </InviteBox>
+                  </InviteWrapper>
+                ))}
+              </>
+            ) : null}
           </>
         ) : (
           <>
-            <div className="notoSansKR bold account-list-title">
-              모임 초대 목록
-            </div>
-            {invitationList.length > 0
-              ? invitationList.map((invite, idx) => (
-                  <>
-                    <InviteWrapper>
-                      <InviteBox key={invite.account}>
-                        <div>{invite.nickName}</div>
-                        <div className="btn-list">
-                          <div
-                            className="btn accept-btn"
-                            onClick={() => acceptInvitation(idx)}>
-                            <CheckIcon />
-                          </div>
-                          <div className="btn deny-btn">
-                            <CloseIcon />
-                          </div>
+            {invitationList.length > 0 ? (
+              <>
+                <div className="notoSansKR bold account-list-title">
+                  모임 초대 목록
+                </div>
+                {invitationList.map((invite, idx) => (
+                  <InviteWrapper>
+                    <InviteBox key={invite.account}>
+                      <div>{invite.nickName}</div>
+                      <div className="btn-list">
+                        <div
+                          className="btn accept-btn"
+                          onClick={() => acceptInvitation(idx)}>
+                          <CheckIcon />
                         </div>
-                      </InviteBox>
-                    </InviteWrapper>
-                  </>
-                ))
-              : null}
+                        <div className="btn deny-btn">
+                          <CloseIcon />
+                        </div>
+                      </div>
+                    </InviteBox>
+                  </InviteWrapper>
+                ))}
+              </>
+            ) : null}
             <div className="notoSansKR bold account-list-title">
               모임 계좌 목록
             </div>
