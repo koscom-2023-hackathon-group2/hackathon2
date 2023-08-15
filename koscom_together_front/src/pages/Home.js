@@ -55,8 +55,32 @@ const Home = () => {
   };
 
   const denyInvitation = (idx) => {
-    setActiveInvitation(invitationList[idx]);
-    handleDeny();
+    // setActiveInvitation(invitationList[idx]);
+    console.log(idx);
+    axios
+      .post(
+        `${API_URL}/invite_agree`,
+        {
+          agree: "no",
+          account: invitationList[idx].account,
+          invitee: user.id,
+          depositAccount: {
+            nickName: "account",
+            depositAccountCode: "",
+            depositAccountId: "",
+          },
+        },
+        {
+          headers: {},
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log("초대 거절 완료.");
+        const inviteData = getInvitationList();
+        setInvitationList([...inviteData]);
+      })
+      .catch((err) => {});
   };
 
   const handleAccept = () => {
@@ -92,30 +116,30 @@ const Home = () => {
 
   const handleDeny = () => {
     // 초대 거절하는 로직 구현하기
-    axios
-      .post(
-        `${API_URL}/invite_agree`,
-        {
-          agree: "no",
-          account: activeInvitation.account,
-          invitee: user.id,
-          depositAccount: {
-            nickName: "account",
-            depositAccountCode: "",
-            depositAccountId: "",
-          },
-        },
-        {
-          headers: {},
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        console.log("초대 거절 완료.");
-        const inviteData = getInvitationList();
-        setInvitationList([...inviteData]);
-      })
-      .catch((err) => {});
+    // axios
+    //   .post(
+    //     `${API_URL}/invite_agree`,
+    //     {
+    //       agree: "no",
+    //       account: activeInvitation.account,
+    //       invitee: user.id,
+    //       depositAccount: {
+    //         nickName: "account",
+    //         depositAccountCode: "",
+    //         depositAccountId: "",
+    //       },
+    //     },
+    //     {
+    //       headers: {},
+    //     }
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //     console.log("초대 거절 완료.");
+    //     const inviteData = getInvitationList();
+    //     setInvitationList([...inviteData]);
+    //   })
+    //   .catch((err) => {});
   };
 
   const ITEM_HEIGHT = 48;
@@ -281,8 +305,8 @@ const Home = () => {
                 <div className="notoSansKR bold account-list-title">
                   모임 초대 목록
                 </div>
-                {invitationList.map((invite, idx) => (
-                  <InviteWrapper>
+                <InviteWrapper>
+                  {invitationList.map((invite, idx) => (
                     <InviteBox key={invite.account}>
                       <div>{invite.nickName}</div>
                       <div className="btn-list">
@@ -298,8 +322,8 @@ const Home = () => {
                         </div>
                       </div>
                     </InviteBox>
-                  </InviteWrapper>
-                ))}
+                  ))}
+                </InviteWrapper>
               </>
             ) : null}
           </>
@@ -320,7 +344,9 @@ const Home = () => {
                           onClick={() => acceptInvitation(idx)}>
                           <CheckIcon />
                         </div>
-                        <div className="btn deny-btn">
+                        <div
+                          className="btn deny-btn"
+                          onClick={() => denyInvitation(idx)}>
                           <CloseIcon />
                         </div>
                       </div>

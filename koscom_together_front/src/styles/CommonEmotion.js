@@ -16,12 +16,30 @@ export const MainLayoutWrapper = styled.div`
 export const HeaderWrapper = styled.div`
   height: 85px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-family: ${FONTS.Lato};
   font-size: 1.5rem;
 
   .logo {
     cursor: pointer;
+  }
+
+  .logout-btn {
+    background-color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    cursor: pointer;
+    color: ${COLORS.white};
+    font-weight: 700;
+
+    &:hover {
+      background-color: ${COLORS.black};
+    }
   }
 `;
 

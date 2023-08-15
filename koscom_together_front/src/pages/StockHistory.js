@@ -136,13 +136,7 @@ const StockHistory = () => {
             </SingleHistoryInfo>
             <SingleHistoryInfo>
               <div className="bold">1주 가격</div>
-              <div>
-                {activeModalStockData &&
-                  (
-                    activeModalStockData.price / activeModalStockData.stockCount
-                  ).toLocaleString()}
-                원
-              </div>
+              <div>{activeModalStockData && activeModalStockData.price}원</div>
             </SingleHistoryInfo>
             <SingleHistoryInfo>
               <div className="bold">수량</div>
@@ -154,7 +148,9 @@ const StockHistory = () => {
               <div className="bold">총 체결 금액</div>
               <div>
                 {activeModalStockData &&
-                  activeModalStockData.price.toLocaleString()}
+                  (
+                    activeModalStockData.price * activeModalStockData.stockCount
+                  ).toLocaleString()}
                 원
               </div>
             </SingleHistoryInfo>
