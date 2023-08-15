@@ -37,11 +37,15 @@ public class Invite extends BaseTimeEntity {
     @Column(name = "ACCOUNT")
     private String account;
 
+    @Column(name = "NICKNAME")
+    private String nickName;
+
     @Builder
-    public Invite(String hostId, String inviteeId, String account) {
+    public Invite(String hostId, String inviteeId, String account, String nickName) {
         this.hostId = hostId;
         this.inviteeId = inviteeId;
         this.account = account;
+        this.nickName = nickName;
     }
 
     public static Invite of(HostDto request) {
@@ -49,6 +53,7 @@ public class Invite extends BaseTimeEntity {
                 .hostId(request.getHostId())
                 .inviteeId(request.getInviteeId())
                 .account(request.getAccount())
+                .nickName(request.getNickName())
                 .build();
     }
 }

@@ -43,3 +43,27 @@ VALUES
     ('TIGER 23-12 국공채액티브',	'447780',	'ETF',	205970,	0.02),
     ('TIGER KOFR금리액티브(합성)',	'449170',	'ETF',	102460,	0.03),
     ('히어로즈 CD금리액티브(합성)',	'458210',	'ETF',	100855,	0.03);
+
+INSERT INTO ACCOUNT
+(CASH_ASSET, FAKE_ACCOUNT_ID, NICKNAME, REAL_ACCOUNT_ID, STOCK_ASSET)
+VALUES
+    (185000000L, '7d7fc936-1528-4e2a-953b-0116d8efabd2', '코스모스', '76b0edbe-fafb-476f-a1a7-f361f430820b', 0),
+    (185000000L, '1d7fc996-1528-4e2a-953b-0116d8efabd1', '지예원투쓰리포', '32b0edbe-fafb-476f-a1a7-f361f430820d', 0);
+
+INSERT INTO ACCOUNT_INFO
+(ACCOUNT_INFO_STATUS, ACCOUNT_SEQ, MEMBER_SEQ)
+VALUES
+    ('HOST', 1, 1),
+    ('HOST', 2, 3);
+
+INSERT INTO DEPOSIT_ACCOUNT
+(ACCOUNT_ID, BANK_TYPE, MEMBER_ID)
+VALUES
+    ('123', 'KB', 'jiye1'),
+    ('456', 'NH', 'jiye3');
+
+INSERT INTO INVITE
+(HOST_ID, INVITEE_ID, ACCOUNT, NICKNAME)
+VALUES
+    ('jiye1', 'jiye2', '7d7fc936-1528-4e2a-953b-0116d8efabd2', '코스모스'),
+    ('jiye3', 'jiye2', '1d7fc996-1528-4e2a-953b-0116d8efabd1', '지예원투쓰리포');
