@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Data
 @ToString
 public class OrderHistoryResponse {
@@ -20,9 +22,11 @@ public class OrderHistoryResponse {
     private StockType stockType;
     private Integer stockCount;
     private Long price;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @Builder
-    public OrderHistoryResponse(Long seq, String memberId, String accountId, String stockNumber, String itemName, String stockMarket, OrderType orderType, StockType stockType, Integer stockCount, Long price) {
+    public OrderHistoryResponse(Long seq, String memberId, String accountId, String stockNumber, String itemName, String stockMarket, OrderType orderType, StockType stockType, Integer stockCount, Long price, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.seq = seq;
         this.memberId = memberId;
         this.accountId = accountId;
@@ -33,7 +37,12 @@ public class OrderHistoryResponse {
         this.stockType = stockType;
         this.stockCount = stockCount;
         this.price = price;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
+
+    @Builder
+
 
     public static OrderHistoryResponse EntityToProtocol(Order order) {
         return OrderHistoryResponse.builder()
@@ -47,6 +56,8 @@ public class OrderHistoryResponse {
                 .price(order.getPrice())
                 .itemName(order.getItemName())
                 .stockMarket(order.getStockMarket())
+                .createdAt(order.getCreatedAt())
+                .updatedAt(order.getUpdatedAt())
                 .build();
     }
 }

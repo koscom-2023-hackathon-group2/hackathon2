@@ -38,6 +38,12 @@ public class StockAsset extends BaseTimeEntity {
     @Column(name = "STOCK_NUMBER")
     private String stockNumber;
 
+    @Column(name = "ITEM_NAME")
+    private String itemName;
+
+    @Column(name = "STOCK_MARKET")
+    private String stockMarket;
+
     @Column(name = "COUNT")
     private Integer count;
 
@@ -45,9 +51,12 @@ public class StockAsset extends BaseTimeEntity {
     private Long totalPrice;
 
     @Builder
-    public StockAsset(Long seq, String stockNumber, Integer count, Long totalPrice) {
+    public StockAsset(Long seq, Account account, String stockNumber, String itemName, String stockMarket, Integer count, Long totalPrice) {
         this.seq = seq;
+        this.account = account;
         this.stockNumber = stockNumber;
+        this.itemName = itemName;
+        this.stockMarket = stockMarket;
         this.count = count;
         this.totalPrice = totalPrice;
     }
@@ -55,6 +64,8 @@ public class StockAsset extends BaseTimeEntity {
     public static StockAsset create (OrderDto request) {
         return StockAsset.builder()
                 .stockNumber(request.getStockNumber())
+                .stockMarket(request.getStockMarket())
+                .itemName(request.getItemName())
                 .count(0)
                 .totalPrice(0L)
                 .build();
